@@ -20,7 +20,7 @@ Customer Functions
 17. My Payment Information
 18. My Preferred Theater
 
-Manager Functions:
+Manager Functions
 19. Choose Functionality
 20. View Revenue Report
 21. View Popular Movies
