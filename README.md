@@ -6,7 +6,7 @@ Customer Functions
 3. Now Playing - Logan
 4. Me - Logan
 5. Movie - Logan
-6. Overview
+6. Overview - Logan
 7. Review
 8. Give Review
 9. Buy Ticket
