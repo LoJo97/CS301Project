@@ -19,7 +19,6 @@ Customer Functions
 16. Order Detail/Cancel Order
 17. My Payment Information
 18. My Preferred Theater
-
 Manager Functions
 19. Choose Functionality
 20. View Revenue Report
