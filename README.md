@@ -1,11 +1,11 @@
 # CS301Project
 
 Customer Functions
-1. Log in
-2. Registration
-3. Now Playing
-4. Me
-5. Movie
+1. Log in - Logan
+2. Registration - Logan
+3. Now Playing - Logan
+4. Me - Logan
+5. Movie - Logan
 6. Overview
 7. Review
 8. Give Review
