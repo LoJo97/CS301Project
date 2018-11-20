@@ -16,8 +16,24 @@
 			</form>
 			<form>
 				<input id="btnLogIn" type="button" value="Log In">
-				<input id="btnRegister" type="button" value="Register">
+				<input id="btnRegister" type="button" value="Register" onclick="window.location.href='./register.html'"/>
 			</form>
 		</div>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			const socket = io('http://localhost:3000');
+
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+			});
+
+			const btnLogIn = document.getElementById('btnLogIn');
+
+			btnLogIn.addEventListener('click', e => {
+				socket.emit('query', 'test', data => {
+					console.log(data); //Will return whether the connection to the database was successful
+				});
+			});
+		</script>
 	</body>
 </html>
