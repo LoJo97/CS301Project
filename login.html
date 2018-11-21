@@ -21,17 +21,31 @@
 		</div>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
+			//Connect to host
 			const socket = io('http://localhost:3000');
-
+			//Print message once connected
 			socket.on('connect', () => {
 				console.log('Socket connected? ' + socket.connected);
 			});
 
+			//Get the login button
 			const btnLogIn = document.getElementById('btnLogIn');
+			//Get the email field
+			const txtEmail = document.getElementById('txtEmail');
+			//Get the password field
+			const txtPassword = document.getElementById('txtPassword');
 
+			//When button is clicked, emit a query to server
 			btnLogIn.addEventListener('click', e => {
-				socket.emit('query', 'test', data => {
-					console.log(data); //Will return whether the connection to the database was successful
+				let mail = txtEmail.value;
+				let pass = txtPassword.value;
+
+				let sql = `SELECT username FROM customer WHERE email=\'${mail}\' AND password=${pass}`;
+
+				console.log(sql);
+
+				socket.emit('query', sql, data => {
+					console.log(data); //Will return the result of the query
 				});
 			});
 		</script>

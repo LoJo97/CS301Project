@@ -19,5 +19,22 @@
 				<input id="btnReg" type="button" value="Create">
 			</form>
 		</div>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+			});
+			//Get the login button
+			const btnReg = document.getElementById('btnReg');
+			//When button is clicked, emit a query to server
+			btnReg.addEventListener('click', e => {
+				socket.emit('query', 'test', data => {
+					console.log(data); //Will return whether the connection to the database was successful
+				});
+			});
+		</script>
 	</body>
 </html>
