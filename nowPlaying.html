@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>Now Playing</title>
+	</head>
+	<body>
+		<h1><u>NOW PLAYING</u></h1>
+		<table id="movies" style="margin-left: auto; margin-right: auto"></table>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the movies table
+				const movies = document.getElementById('movies');
+
+				//SQL query
+				let sql = `SELECT title FROM movie`;
+
+				console.log(sql); //Ensures query was correct
+
+				socket.emit('query', sql, data => {
+					data.forEach(entry => {
+						console.log(entry);
+						let newRow = movies.insertRow(0);
+						newRow.addEventListener('click', e => {
+							//Link to movie page
+						});
+
+						newRow.insertCell(0).innerHTML = entry.title;
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

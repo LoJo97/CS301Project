@@ -40,12 +40,18 @@
 				let mail = txtEmail.value;
 				let pass = txtPassword.value;
 
-				let sql = `SELECT username FROM customer WHERE email=\'${mail}\' AND password=${pass}`;
+				//SQL query
+				let sql = `SELECT email, username FROM customer WHERE (email=\'${mail}\' AND password=${pass})`;
 
-				console.log(sql);
+				console.log(sql); //Ensures query was correct
 
 				socket.emit('query', sql, data => {
 					console.log(data); //Will return the result of the query
+					console.log(data[0].username);
+					if(data[0].email === mail){
+						console.log(`User ${data[0].username} successfully logged on`);
+						window.location.replace('./nowPlaying.html');
+					}
 				});
 			});
 		</script>
