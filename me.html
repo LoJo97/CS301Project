@@ -3,12 +3,10 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="mystyle.css">
 		<meta charset="UTF-8">
-		<title>Now Playing</title>
+		<title>MyPage</title>
 	</head>
 	<body>
-		<div id="me"></div>
-		<h1><u>NOW PLAYING</u></h1>
-		<table id="movies" style="margin-left: auto; margin-right: auto"></table>
+		<h1><u id="name"></u></h1>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -16,7 +14,7 @@
 			//Print message once connected
 			socket.on('connect', () => {
 				console.log('Socket connected? ' + socket.connected);
-				
+
 				//Get the url query
 				let search = window.location.search;
 				console.log(search);
@@ -35,28 +33,8 @@
 					email = data[0].email;
 
 					//Display link to "me" page
-					let me = document.getElementById('me');
-					me.innerHTML = `<a href="./me.html?email=${email}">${user}</a>`;
-				});
-
-				//Get the movies table
-				const movies = document.getElementById('movies');
-
-				//SQL query
-				let sql2 = `SELECT title FROM movie`;
-
-				console.log(sql2); //Ensures query was correct
-
-				socket.emit('query', sql2, data => {
-					data.forEach(entry => {
-						console.log(entry);
-						let newRow = movies.insertRow(0);
-						newRow.addEventListener('click', e => {
-							//Link to movie page
-						});
-
-						newRow.insertCell(0).innerHTML = entry.title;
-					});
+					let name = document.getElementById('name');
+					
 				});
 			});
 		</script>

@@ -50,7 +50,7 @@
 					console.log(data[0].username);
 					if(data[0].email === mail){
 						console.log(`User ${data[0].username} successfully logged on`);
-						window.location.replace('./nowPlaying.html');
+						window.location.replace(`./nowPlaying.html?email=${data[0].email}`);
 					}
 				});
 			});
