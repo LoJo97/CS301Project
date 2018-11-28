@@ -10,8 +10,8 @@ Customer Functions
 4. Me - Logan
 5. Movie - Logan
 6. Overview - Logan
-7. Review
-8. Give Review
+7. Review - Cole
+8. Give Review - Cole
 9. Buy Ticket
 10. Search Theater Results
 11. Select Time
