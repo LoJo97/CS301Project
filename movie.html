@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>Movie</title>
+	</head>
+	<body>
+		<p id="content"></p>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the url query
+				let search = window.location.search;
+				console.log(search);
+				let split = search.search('&'); //Break up the query into the email and title
+				let userEmail = search.slice(7, split);
+				console.log(userEmail);
+				let movieTitle = search.slice(split + 7);
+				movieTitle = movieTitle.replace('%20', ' ');
+				console.log(movieTitle);
+
+				//Get the user
+				let sql = `SELECT * FROM movie WHERE title='${movieTitle}'`;
+				console.log(sql);
+
+				let user;
+				let email;
+				socket.emit('query', sql, data => {
+					console.log(data);
+
+					let content = document.getElementById('content');
+					content.innerHTML = `<u>${data[0].title}</u> <br>
+										Released: ${data[0].releaseDate} <br>
+										${data[0].rating}, Runtime: ${data[0].length}min <br>
+										Genre: ${data[0].genre} <br>
+										<a href="./overview.html?email=${userEmail}&title=${movieTitle}">Overview</a> <br>
+										<a href="./review.html?email=${userEmail}&title=${movieTitle}">Movie Review</a> <br>
+										<a href="./buyTicket.html?email=${userEmail}&title=${movieTitle}">Buy Ticket</a>`;
+					//TODO: Get avg rating data
+				});
+			});
+		</script>
+	</body>
+</html>

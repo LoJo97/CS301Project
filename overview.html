@@ -3,10 +3,11 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="mystyle.css">
 		<meta charset="UTF-8">
-		<title>MyPage</title>
+		<title>Movie</title>
 	</head>
 	<body>
 		<p id="content"></p>
+		<input type="button" value="Go back!" onclick="history.back()">
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -18,26 +19,36 @@
 				//Get the url query
 				let search = window.location.search;
 				console.log(search);
-				let userEmail = search.slice(7, search.length);
+				let split = search.search('&'); //Break up the query into the email and title
+				let userEmail = search.slice(7, split);
 				console.log(userEmail);
+				let movieTitle = search.slice(split + 7);
+				movieTitle = movieTitle.replace('%20', ' ');
+				console.log(movieTitle);
 
 				//Get the user
-				let sql1 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;
+				let sql1 = `SELECT title, synopsis FROM movie WHERE title='${movieTitle}'`;
 				console.log(sql1);
+
+				let sql2 = `SELECT member FROM cast WHERE title='${movieTitle}'`;
+				console.log(sql2);
 
 				let user;
 				let email;
 				socket.emit('query', sql1, data => {
 					console.log(data);
-					user = data[0].username;
-					email = data[0].email;
 
-					//Display link to "me" page
 					let content = document.getElementById('content');
-					content.innerHTML = `<h1><u>${user}</u></h1> <br>
-										 <a href="./orderHistory.html?email=${email}">My Order History</a> <br>
-										 <a href="./paymentInfo.html?email=${email}">My Payment Info</a> <br>
-										 <a href="./preferredTheater.html?email=${email}">My Preferred Theater</a>`;
+					content.innerHTML = `<u>${data[0].title}</u> <br>
+										${data[0].synopsis} <br>
+										Cast:`;
+
+					socket.emit('query', sql2, cast => {
+						cast.forEach(entry => {
+							console.log(entry);
+							content.innerHTML += `<br>${entry}`;
+						});
+					});
 				});
 			});
 		</script>
