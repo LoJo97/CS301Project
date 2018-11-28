@@ -24,6 +24,6 @@ Customer Functions
 18. My Preferred Theater
 
 Manager Functions
-1. Choose Functionality
-2. View Revenue Report
-3. View Popular Movies
+1. Choose Functionality - Victoria
+2. View Revenue Report - Victoria
+3. View Popular Movies - Victoria
