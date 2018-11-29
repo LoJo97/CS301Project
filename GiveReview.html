@@ -1,1 +1,89 @@
-<h1>Hello World</h1>
+<head>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <meta charset="UTF-8">
+    <title>Review</title>
+</head>
+<body style="text-align:left; margin-left: 50px">
+    <div>
+        <div style="text-align: center">
+            <p style="display:inline-block" id="MovieTitle"></p>
+        </div>
+        <div>
+            <span>
+                Rating:
+                <select id="ReviewRating" style="margin-left: 34px">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </span>
+            <br />
+            <span>
+                Title: <textarea id="ReviewTitle" style="margin-top: 25px; margin-left:50px; width: 800px" placeholder="Enter Title..."></textarea>
+            </span>
+            <br />
+            <span>
+                Comment: <textarea id="ReviewComment" style="margin-top: 25px; margin-left:10px; width: 800px" placeholder="Enter Comment..."></textarea>
+            </span>
+        </div>
+        <p style="display:inline-block" id="BackButton"></p>
+        <p style="display:inline-block" id="SubmitButton"></p>
+        <p id="email" style="display:none"></p>
+        <p id="reviewId" style="display:none"></p>
+    </div>
+    <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        //Connect to host
+        const socket = io('http://localhost:3000');
+        //Print message once connected
+        socket.on('connect', () => {
+            console.log('Socket connected? ' + socket.connected);
+
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let split = search.search('&'); //Break up the query into the email and title
+            let userEmail = search.slice(7, split);
+            console.log(userEmail);
+            let movieTitle = search.slice(split + 7);
+            movieTitle = movieTitle.replace('%20', ' ');
+
+            //set elements
+            let title = document.getElementById('MovieTitle');
+            title.innerHTML = `<h1>${movieTitle}</h1>`;
+            title.value = movieTitle;
+            document.getElementById('SubmitButton').innerHTML = `<a class="btn green" onclick="submitReview()">Submit</a>`
+            document.getElementById('BackButton').innerHTML = `<a class="btn red" href="./review.html?email=${userEmail}&title=${movieTitle}">Back</a>`;
+            document.getElementById('email').value = userEmail;
+
+            let sql = `SELECT MAX(reviewID) AS id FROM review`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+                document.getElementById('reviewId').value = data[0].id;
+            })
+        });
+    </script>
+    <script>
+        function submitReview() {
+            var title = document.getElementById('ReviewTitle').value;
+            var comment = document.getElementById('ReviewComment').value;
+            var rating = document.getElementById('ReviewRating').value;
+            var movie = document.getElementById('MovieTitle').value;
+            var email = document.getElementById('email').value;
+            var reviewId = document.getElementById('reviewId').value + 1;
+            if (!comment || !title) {
+                alert('Enter all fields with values');
+                return;
+            }
+
+            const socket = io('http://localhost:3000');
+            let sql = `INSERT INTO review (rTitle, COMMENT, rating, mTitle, email, reviewID) VALUES ('${title}', '${comment}', ${rating}, '${movie}', '${email}', ${reviewId})`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+            });
+            window.history.back();
+        }
+    </script>
+</body>

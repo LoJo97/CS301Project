@@ -1,16 +1,63 @@
-<head>
+﻿<head>
 	<link rel="stylesheet" type="text/css" href="mystyle.css">
 	<meta charset="UTF-8">
 	<title>Review</title>
 </head>
-<body style="text-align:left">
-    <div style="text-align: center">
-        <h1 style="display:inline-block">Movie Title</h1><h3 style="display:inline-block; margin-left: 20px">Avg Rating: X</h3>
+<body style="text-align:left;margin-left:25px">
+    <div>
+        <div style="text-align: center">
+            <p style="display:inline-block" id="MovieTitle"></p><p id="avgRating" style="display:inline-block; margin-left: 20px"></p>
+        </div>
+        <table id="Reviews" border="1" align="center"></table>
+        <p id="NewReview" style="margin-top:15px; text-align:center"></p>
+        <p id="BackButton"></p>
     </div>
-    <div style="text-align:center">
-        <a class="btn green" href="/GiveReview.html">Give Review</a>
-    </div>
-    <div style="margin-left: 25px">
-        <a class="btn red" href="/movie.html">Back</a>
-    </div>
+    <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        //Connect to host
+        const socket = io('http://localhost:3000');
+        //Print message once connected
+        socket.on('connect', () => {
+            console.log('Socket connected? ' + socket.connected);
+
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let split = search.search('&'); //Break up the query into the email and title
+            let userEmail = search.slice(7, split);
+            console.log(userEmail);
+            let movieTitle = search.slice(split + 7);
+            movieTitle = movieTitle.replace('%20', ' ');
+
+            //set elements
+            let title = document.getElementById('MovieTitle');
+            title.innerHTML = `<h1>${movieTitle}</h1>`;
+            let newReview = document.getElementById('NewReview');
+            newReview.innerHTML = `<a class="btn green" href="/GiveReview.html?email=${userEmail}&title=${movieTitle}">Give Review</a>`
+            let back = document.getElementById('BackButton');
+            back.innerHTML = `<a class="btn red" href="./movie.html?email=${userEmail}&title=${movieTitle}">Back</a>`;
+
+            //Get reviews
+            let sql = `SELECT * FROM review WHERE mTitle='${movieTitle}'`;
+            console.log(sql);
+            const reviews = document.getElementById('Reviews');
+            socket.emit('query', sql, data => {
+                console.log(data);
+                data.forEach(entry => {
+                    console.log(entry);
+                    let newRow = reviews.insertRow(0);
+                    newRow.insertCell(0).innerHTML = '<td style="margin-top:15px"> Title: ' + entry.rTitle +
+                        '<br/>Rating: ' + entry.rating +
+                        '<br/>Comment:' + entry.COMMENT + '</td > ';
+                });
+            });
+
+            let sql2 = `SELECT AVG(rating) AS rating FROM review WHERE mTitle='${movieTitle}'`;
+            socket.emit('query', sql2, data => {
+                console.log(data);
+                let avgrating = document.getElementById('avgRating');
+                avgrating.innerHTML = `<h3>Average Rating: ${data[0].rating}</h3>`;
+            });
+        });
+    </script>
 </body>
