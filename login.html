@@ -18,6 +18,7 @@
 				<input id="btnLogIn" type="button" value="Log In">
 				<input id="btnRegister" type="button" value="Register" onclick="window.location.href='./register.html'"/>
 			</form>
+			<p id="error"></p>
 		</div>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
@@ -41,16 +42,27 @@
 				let pass = txtPassword.value;
 
 				//SQL query
-				let sql = `SELECT email, username FROM customer WHERE (email=\'${mail}\' AND password=${pass})`;
+				let sql = `SELECT email, username FROM customer WHERE (email=\'${mail}\' AND password='${pass}')`;
 
 				console.log(sql); //Ensures query was correct
 
 				socket.emit('query', sql, data => {
 					console.log(data); //Will return the result of the query
-					console.log(data[0].username);
-					if(data[0].email === mail){
+					if(!('errno' in data) && data.length){
 						console.log(`User ${data[0].username} successfully logged on`);
 						window.location.replace(`./nowPlaying.html?email=${data[0].email}`);
+					}else{
+						sql = `SELECT email, username FROM manager WHERE (email=\'${mail}\' AND password='${pass}')`;
+
+						socket.emit('query', sql, data2 => {
+							console.log(data2);
+							if(!('errno' in data2) && data2.length){
+								console.log(`User ${data2[0].username} successfully logged on`);
+								window.location.replace(`./chooseFunctionality.html?email=${data2[0].email}`);
+							}else{
+								document.getElementById('error').innerHTML = 'Error: Invalid username/password';
+							}
+						});
 					}
 				});
 			});
