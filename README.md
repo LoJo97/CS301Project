@@ -21,7 +21,7 @@ Customer Functions
 13. Payment Info
 14. Confirmation
 15. Order History - Isaac
-16. Order Detail/Cancel Order
+16. Order Detail/Cancel Order -Isaac
 17. My Payment Information - Isaac
 18. My Preferred Theater - Isaac
 
