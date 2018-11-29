@@ -52,7 +52,7 @@
 						console.log(entry);
 						let newRow = movies.insertRow(0);
 						newRow.addEventListener('click', e => {
-							//Link to movie page
+							window.location.replace(`./movie.html?email=${userEmail}&title=${entry.title}`);
 						});
 
 						newRow.insertCell(0).innerHTML = entry.title;

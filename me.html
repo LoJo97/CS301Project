@@ -6,7 +6,7 @@
 		<title>MyPage</title>
 	</head>
 	<body>
-		<h1><u id="name"></u></h1>
+		<p id="content"></p>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -33,8 +33,11 @@
 					email = data[0].email;
 
 					//Display link to "me" page
-					let name = document.getElementById('name');
-					
+					let content = document.getElementById('content');
+					content.innerHTML = `<h1><u>${user}</u></h1> <br>
+										 <a href="./orderHistory.html?email=${email}">My Order History</a> <br>
+										 <a href="./paymentInfo.html?email=${email}">My Payment Info</a> <br>
+										 <a href="./preferredTheater.html?email=${email}">My Preferred Theater</a>`;
 				});
 			});
 		</script>
