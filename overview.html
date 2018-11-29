@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>Movie</title>
+	</head>
+	<body>
+		<p id="content"></p>
+		<input type="button" value="Go back!" onclick="history.back()">
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the url query
+				let search = window.location.search;
+				console.log(search);
+				let split = search.search('&'); //Break up the query into the email and title
+				let userEmail = search.slice(7, split);
+				console.log(userEmail);
+				let movieTitle = search.slice(split + 7);
+				movieTitle = movieTitle.replace('%20', ' ');
+				console.log(movieTitle);
+
+				//Get the user
+				let sql1 = `SELECT title, synopsis FROM movie WHERE title='${movieTitle}'`;
+				console.log(sql1);
+
+				let sql2 = `SELECT member FROM cast WHERE title='${movieTitle}'`;
+				console.log(sql2);
+
+				let user;
+				let email;
+				socket.emit('query', sql1, data => {
+					console.log(data);
+
+					let content = document.getElementById('content');
+					content.innerHTML = `<u>${data[0].title}</u> <br>
+										${data[0].synopsis} <br>
+										Cast:`;
+
+					socket.emit('query', sql2, cast => {
+						cast.forEach(entry => {
+							console.log(entry);
+							content.innerHTML += `<br>${entry}`;
+						});
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
