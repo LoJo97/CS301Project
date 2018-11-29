@@ -14,8 +14,8 @@ Customer Functions
 6. Overview - Logan
 7. Review - Cole
 8. Give Review - Cole
-9. Buy Ticket
-10. Search Theater Results
+9. Buy Ticket - Logan
+10. Search Theater Results - Logan
 11. Select Time
 12. Ticket
 13. Payment Info
