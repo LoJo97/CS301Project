@@ -53,7 +53,6 @@ rating int NOT NULL,
 reviewID int PRIMARY KEY,
 mTitle varchar(255) REFERENCES movie(title),
 email varchar(255) REFERENCES customer(email)
-/*CHECK (rating >=1 AND rating <=5)  FIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXME*/
 );
 
 
@@ -101,7 +100,6 @@ address varchar(500) REFERENCES theatre(address),
 title varchar(255) REFERENCES movie(title),
 dateOfShowing datetime NOT NULL,
 cardNum varchar(25) REFERENCES paymentInfo(cardNum)
-/*CHECK(adult#ofTix >=0 AND child#ofTix >=0 AND senior#ofTix >= 0)FIXMEFIXMEFIXMEFIXMEFIXMEFIXMEFIXME*/
 );
 
 

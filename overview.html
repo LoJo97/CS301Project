@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<p id="content"></p>
-		<input type="button" value="Go back!" onclick="history.back()">
+		<input type="button" value="Back" onclick="history.back()">
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -46,7 +46,7 @@
 					socket.emit('query', sql2, cast => {
 						cast.forEach(entry => {
 							console.log(entry);
-							content.innerHTML += `<br>${entry}`;
+							content.innerHTML += `<br>${entry.actorCharacter}`;
 						});
 					});
 				});
