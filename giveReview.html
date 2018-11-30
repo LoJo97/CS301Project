@@ -1,4 +1,4 @@
-<head>
+﻿<head>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <meta charset="UTF-8">
     <title>Review</title>
@@ -73,8 +73,8 @@
             var movie = document.getElementById('MovieTitle').value;
             var email = document.getElementById('email').value;
             var reviewId = document.getElementById('reviewId').value + 1;
-            if (!comment || !title) {
-                alert('Enter all fields with values');
+            if (!title) {
+                alert('You must enter a title');
                 return;
             }
 
