@@ -74,7 +74,7 @@ CREATE TABLE screening
 (
 title varchar(255) REFERENCES movie(title),
 address varchar(500) REFERENCES theatre(address),
-screenTime datetime NOT NULL,
+screenTime varchar(30) NOT NULL,
 price int NOT NULL,
 CONSTRAINT screen_pk PRIMARY KEY(title, address, screenTime)
 );
@@ -98,7 +98,7 @@ seniorNumofTix int,
 email varchar(255) REFERENCES customer(email),
 address varchar(500) REFERENCES theatre(address),
 title varchar(255) REFERENCES movie(title),
-dateOfShowing datetime NOT NULL,
+dateOfShowing varchar(255) NOT NULL,
 cardNum varchar(25) REFERENCES paymentInfo(cardNum)
 );
 

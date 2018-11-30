@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>My Payment Info</title>
+	</head>
+	<body>
+		<p id="content0"></p>
+		<p>Card #, Name on Card, Expiration Date</u></p>
+		<p id="content1"></p>
+	<div id="delete-form">
+		<form>
+			Select a payment method to delete and click button to delete <br>
+			<input id="btnDelete" type="button" value="Delete">
+		</form>
+		<br/>
+		<div id="back"></div>
+		</div>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the url query
+				let search = window.location.search;
+				console.log(search);
+				let userEmail = search.slice(7, search.length);
+				console.log(userEmail);
+
+				//Get the user
+				let sql0 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;
+				console.log(sql0);
+				//Get theatres
+				let sql1 = `SELECT DISTINCT cardNum, name, expoDate FROM paymentInfo WHERE email=\'${userEmail}\';`;
+				console.log(sql1);
+
+
+				let back = document.getElementById('back');
+				back.innerHTML = `<a href="./me.html?email=${userEmail}">back</a>`;
+
+
+				let username;
+				let name;
+				let cardNum;
+				let expoDate;
+				let counter = 0;
+				let htmlString = '';
+
+				//Print the title with username
+				socket.emit('query', sql0, data => {
+					console.log(data);
+					username = data[0].username;
+					let content0 = document.getElementById('content0');
+					content0.innerHTML = `<h1><u>${username}\'s Payment Options</u></h1> <br/>`;
+				});
+
+				var cardNums = new Array(100);
+				let numOfCards = 0;
+				//Print the preferred theatre list
+				socket.emit('query', sql1, data2 => {
+					console.log(data2);
+					if(data2[0] == undefined) { htmlString += 'No Payment Options';}
+					while(data2[counter] != undefined)
+					{
+						name = data2[counter].name;
+						cardNum = data2[counter].cardNum;
+						expoDate = data2[counter].expoDate;
+						counter++;
+						htmlString += `<p><input type="radio" name="group1" id="card${counter}" value="1">  ${cardNum}, ${name}, ${expoDate}</p>`;
+						console.log(htmlString);
+
+						cardNums[counter-1] = cardNum;
+						console.log('Loop ' + cardNums[counter-1]);
+						numOfCards+= 1;
+					}
+					//Display link to "me" page
+					let content1 = document.getElementById('content1');
+					content1.innerHTML = htmlString;
+				});
+				const numDelete = document.getElementById('deleteNum');
+
+
+				//Delete button
+				var num = 0;
+				btnDelete.addEventListener('click', e => {
+					for(var i = 1; i < (numOfCards + 1);i++)
+					{
+						if(document.getElementById(`card${i}`).checked == true)
+						{
+							num = i;
+							console.log(i + ' is checked');
+						}
+					}
+					console.log(num);
+					let sql2 = `DELETE FROM paymentInfo WHERE email=\'${userEmail}\' and cardNum=\'${cardNums[num-1]}\';`;
+					console.log(sql2);
+					socket.emit('query', sql2, data2 => {
+					});
+
+					location.reload();
+				});
+
+			});
+		</script>
+	</body>
+</html>
