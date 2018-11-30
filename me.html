@@ -7,6 +7,8 @@
 	</head>
 	<body>
 		<p id="content"></p>
+		<br>
+		<div id="back"></div>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -39,6 +41,9 @@
 										 <a href="./paymentInfo.html?email=${email}">My Payment Info</a> <br>
 										 <a href="./preferredTheater.html?email=${email}">My Preferred Theater</a>`;
 				});
+
+				let back = document.getElementById('back');
+				back.innerHTML = `<a href="./nowPlaying.html?email=${userEmail}"> Back to Now Playing</a>`;
 			});
 		</script>
 	</body>
