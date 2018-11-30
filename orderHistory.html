@@ -11,10 +11,7 @@
 		<p id="content1"></p>
 	<div id="delete-form">
 		<form>
-			Number of the order you want to view details for:
-			<input id="viewNum" type="text"><br>
-		</form>
-		<form>
+			Select the order you want to view details for and click button to view detais <br>
 			<input id="btnView" type="button" value="View Details">
 		</form>
 		<br/>
@@ -64,6 +61,7 @@
 				});
 
 				var orderIDs = new Array(100);
+				let orderIDNum = 0;
 				//Print the preferred theatre list
 				socket.emit('query', sql1, data2 => {
 					console.log(data2);
@@ -75,19 +73,32 @@
 						status = data2[counter].status;
 						cost = data2[counter].cost;
 						counter++;
-						htmlString += `<p>${counter}:  ${orderID}, ${title}, ${status}, ${cost}</p>`;
+						htmlString += `<p><input type="radio" name="group1" id="order${counter}" value="1">  ${orderID}, ${title}, ${status}, ${cost}</p>`;
 						console.log(htmlString);
 
 						orderIDs[counter-1] = orderID;
+						orderIDNum+= 1;
 					}
 					//Display link to "me" page
 					let content1 = document.getElementById('content1');
 					content1.innerHTML = htmlString;
 				});
 
+				//Create view details button
+				var num;
 				const numDelete = document.getElementById('viewNum');
 				btnView.addEventListener('click', e => {
-					let num = numDelete.value;
+					console.log(orderIDNum);
+					for(var i = 1; i < (orderIDNum + 1);i++)
+					{
+						console.log(i);
+						if(document.getElementById(`order${i}`).checked == true)
+						{
+							num = i;
+							console.log(i + ' is checked');
+						}
+					}
+
 					console.log(num);
 					window.location.replace(`./orderDetail.html?orderID=${orderIDs[num-1]}`);
 

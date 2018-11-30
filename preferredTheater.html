@@ -11,11 +11,8 @@
 		<p id="content1"></p>
 	<div id="delete-form">
 		<form>
-			Number of the theatre you want to delete
-			<input id="deleteNum" type="number"><br>
-		</form>
-		<form>
-			<input id="btnDelete" type="button" value="Delete">
+			Select theatre to delete and click button to delete <br>
+			<input id="btnDelete" type="button" value="Delete Theatre">
 		</form>
 		<br/>
 		<div id="back"></div>
@@ -61,6 +58,7 @@
 				});
 
 				var addresses = new Array(100);
+				var numOfAddresses = 0;
 
 				//Print the preferred theatre list
 				socket.emit('query', sql1, data2 => {
@@ -71,9 +69,9 @@
 						name = data2[counter].name;
 						address = data2[counter].address;
 						counter++;
-						htmlString += `<p>${counter}:  ${name}, ${address}</p>`;
+						htmlString += `<p><input type="radio" name="group1" id="theatre${counter}" value="1">  ${name}, ${address}</p>`;
 						console.log(htmlString);
-
+						numOfAddresses += 1;
 						addresses[counter-1] = address;
 					}
 					//Display link to "me" page
@@ -83,11 +81,20 @@
 				const numDelete = document.getElementById('deleteNum');
 
 				//Button to delete a theatre
+				var num;
 				btnDelete.addEventListener('click', e => {
-					let num = numDelete.value;
+					console.log(numOfAddresses);
+					for(var i = 1; i < (numOfAddresses + 1);i++)
+					{
+						console.log(i);
+						if(document.getElementById(`theatre${i}`).checked == true)
+						{
+							num = i;
+							console.log(i + ' is checked');
+						}
+					}
 					console.log(num);
-
-					let sql2 = `DELETE FROM preferences WHERE email=\'${userEmail}\' and address=\'${addresses[num-1]}\'`;
+					let sql2 = `DELETE FROM preferences WHERE email=\'${userEmail}\' and address=\'${addresses[num - 1]}\'`;
 					console.log(sql2);
 					socket.emit('query', sql2, data2 => {
 					});
