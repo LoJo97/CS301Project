@@ -15,7 +15,7 @@ Customer Functions
 7. Review - Cole
 8. Give Review - Cole
 9. Choose Theater - Logan
-10. Search Theater Results - Logan
+10. Search Theater Results - Victoria
 11. Select Time - Cole
 12. Ticket - Cole
 13. Payment Info - Cole
