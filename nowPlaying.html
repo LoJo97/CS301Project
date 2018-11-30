@@ -9,6 +9,7 @@
 		<div id="me"></div>
 		<h1><u>NOW PLAYING</u></h1>
 		<table id="movies" style="margin-left: auto; margin-right: auto"></table>
+		<input type="button" value="Back" onclick="history.back()">
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -52,7 +53,7 @@
 						console.log(entry);
 						let newRow = movies.insertRow(0);
 						newRow.addEventListener('click', e => {
-							window.location.replace(`./movie.html?email=${userEmail}&title=${entry.title}`);
+							window.location.assign(`./movie.html?email=${userEmail}&title=${entry.title}`);
 						});
 
 						newRow.insertCell(0).innerHTML = entry.title;

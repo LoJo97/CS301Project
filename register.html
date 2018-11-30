@@ -56,7 +56,7 @@
 								sql = `INSERT INTO manager VALUES ('${user}', '${pass}', '${mail}')`;
 								socket.emit('query', sql, data => {
 									//TODO: Link to appropriate page
-									//window.location.replace(`./nowPlaying.html?email=${mail}`);
+									//window.location.assign(`./nowPlaying.html?email=${mail}`);
 								});
 							}else{
 								document.getElementById('error').innerHTML = `Manager password is incorrect`;
@@ -65,7 +65,7 @@
 					}else{
 						sql = `INSERT INTO customer VALUES ('${user}', '${pass}', '${mail}')`;
 						socket.emit('query', sql, data => {
-							window.location.replace(`./nowPlaying.html?email=${mail}`);
+							window.location.assign(`./nowPlaying.html?email=${mail}`);
 						});
 					}
 				}else{

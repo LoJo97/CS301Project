@@ -25,24 +25,30 @@
 				movieTitle = movieTitle.replace('%20', ' ');
 				console.log(movieTitle);
 
-				//Get the user
-				let sql = `SELECT * FROM movie WHERE title='${movieTitle}'`;
-				console.log(sql);
+				//Get the movie
+				let sql1 = `SELECT * FROM movie WHERE title='${movieTitle}'`;
+				console.log(sql1);
+
+				//Get the review average
+				let sql2 = `SELECT AVG(rating) 'average' FROM review WHERE mTitle='${movieTitle}'`;
+				console.log(sql2);
 
 				let user;
 				let email;
-				socket.emit('query', sql, data => {
+				socket.emit('query', sql1, data => {
 					console.log(data);
-
-					let content = document.getElementById('content');
-					content.innerHTML = `<u>${data[0].title}</u> <br>
-										Released: ${data[0].releaseDate} <br>
-										${data[0].rating}, Runtime: ${data[0].length}min <br>
-										Genre: ${data[0].genre} <br>
-										<a href="./overview.html?email=${userEmail}&title=${movieTitle}">Overview</a> <br>
-										<a href="./review.html?email=${userEmail}&title=${movieTitle}">Movie Review</a> <br>
-										<a href="./buyTicket.html?email=${userEmail}&title=${movieTitle}">Buy Ticket</a>`;
-					//TODO: Get avg rating data
+					socket.emit('query', sql2, avg => {
+						console.log(avg);
+						let content = document.getElementById('content');
+						content.innerHTML = `<u>${data[0].title}</u> <br>
+											Released: ${data[0].releaseDate} <br>
+											${data[0].rating}, Runtime: ${data[0].length}min <br>
+											Genre: ${data[0].genre} <br>
+											Rating: ${avg[0].average} <br>
+											<a href="./overview.html?email=${userEmail}&title=${movieTitle}">Overview</a> <br>
+											<a href="./review.html?email=${userEmail}&title=${movieTitle}">Movie Review</a> <br>
+											<a href="./buyTicket.html?email=${userEmail}&title=${movieTitle}">Buy Ticket</a>`;
+					});
 				});
 			});
 		</script>

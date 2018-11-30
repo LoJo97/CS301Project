@@ -15,23 +15,12 @@ const server = http.createServer((request, res) => {
 	fs.readFile(filename, (err, data) => {
 		if(err){
 			res.writeHead(404, {'Content-Type': 'text/html'});
-			return res.end('404 Not Found');
+			res.end('404 Not Found');
+		}else{
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.write(data);
+			res.end();
 		}
-		res.writeHead(200, {'Content-Type': 'text/html'});
-		res.write(data);
-		return res.end();
-	});
-
-	let body = [];
-
-	request.on('error', err => {
-		console.error(err);
-	})
-	.on('data', chunk => {
-		body.push(chunk);
-	})
-	.on('end', () => {
-		body = Buffer.concat(body).toString();
 	});
 }).listen(port); //Listen for requests
 
