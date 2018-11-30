@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>My Order History</title>
+	</head>
+	<body>
+		<p id="content0"></p>
+		<p> Order ID, Movie, Status, Cost </p>
+		<p id="content1"></p>
+	<div id="delete-form">
+		<form>
+			Number of the order you want to view details for:
+			<input id="viewNum" type="text"><br>
+		</form>
+		<form>
+			<input id="btnView" type="button" value="View Details">
+		</form>
+		<br/>
+		<div id="back"></div>
+		</div>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the url query
+				let search = window.location.search;
+				console.log(search);
+				let userEmail = search.slice(7, search.length);
+				console.log(userEmail);
+
+				//Get the user
+				let sql0 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;
+				console.log(sql0);
+				//Get theatres
+				let sql1 = `SELECT DISTINCT orderID, title, status,cost FROM ticketOrder WHERE email=\'${userEmail}\';`;
+				console.log(sql1);
+
+
+				let back = document.getElementById('back');
+				back.innerHTML = `<a href="./me.html?email=${userEmail}">back</a>`;
+
+
+				let username;
+
+				let orderID;
+				let title;
+				let status;
+				let cost;
+				let counter = 0;
+				let htmlString = '';
+
+				//Print the title with username
+				socket.emit('query', sql0, data => {
+					console.log(data);
+					username = data[0].username;
+					let content0 = document.getElementById('content0');
+					content0.innerHTML = `<h1><u>${username}\'s Order History</u></h1> <br/>`;
+				});
+
+				var orderIDs = new Array(100);
+				//Print the preferred theatre list
+				socket.emit('query', sql1, data2 => {
+					console.log(data2);
+					if(data2[0] == undefined) { htmlString += 'No Order History';}
+					while(data2[counter] != undefined)
+					{
+						orderID = data2[counter].orderID;
+						title = data2[counter].title;
+						status = data2[counter].status;
+						cost = data2[counter].cost;
+						counter++;
+						htmlString += `<p>${counter}:  ${orderID}, ${title}, ${status}, ${cost}</p>`;
+						console.log(htmlString);
+
+						orderIDs[counter-1] = orderID;
+					}
+					//Display link to "me" page
+					let content1 = document.getElementById('content1');
+					content1.innerHTML = htmlString;
+				});
+
+				const numDelete = document.getElementById('viewNum');
+				btnView.addEventListener('click', e => {
+					let num = numDelete.value;
+					console.log(num);
+					window.location.replace(`./orderDetail.html?orderID=${orderIDs[num-1]}`);
+
+				});
+
+			});
+		</script>
+	</body>
+</html>
