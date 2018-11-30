@@ -16,10 +16,10 @@ Customer Functions
 8. Give Review - Cole
 9. Choose Theater - Logan
 10. Search Theater Results - Logan
-11. Select Time
-12. Ticket
-13. Payment Info
-14. Confirmation
+11. Select Time - Cole
+12. Ticket - Cole
+13. Payment Info - Cole
+14. Confirmation - Cole
 15. Order History - Isaac
 16. Order Detail/Cancel Order -Isaac
 17. My Payment Information - Isaac
