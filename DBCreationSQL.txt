@@ -98,7 +98,7 @@ seniorNumofTix int,
 email varchar(255) REFERENCES customer(email),
 address varchar(500) REFERENCES theatre(address),
 title varchar(255) REFERENCES movie(title),
-dateOfShowing datetime NOT NULL,
+dateOfShowing varchar(255) NOT NULL,
 cardNum varchar(25) REFERENCES paymentInfo(cardNum)
 );
 

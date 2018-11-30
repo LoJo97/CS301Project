@@ -10,6 +10,9 @@
 		<h2 id="movieTitle"></h2>
 		<p id="content2"></p>
 		<p id="content3"></p>
+		<p id="content4"></p>
+		<p id="content5"></p>
+		<p id="content6"></p>
 	<div id="Detail-Form">
 
 		<form>
@@ -55,9 +58,9 @@
 					mTitle = data1[0].title
 					status = data1[0].status;
 					cost = data1[0].cost;					
-					adultNum = data1[0].adultNum;
-					childNum = data1[0].childNum;
-					seniorNum = data1[0].seniorNum;
+					adultNum = data1[0].adultNumOfTix;
+					childNum = data1[0].childNumOfTix;
+					seniorNum = data1[0].seniorNumOfTix;
 					address = data1[0].address;
 					dateOfShowing = data1[0].dateOfShowing;
 					userEmail = data1[0].email;
@@ -83,27 +86,56 @@
 
 					//Printing movie showtime
 					htmlString = '';
-					var dt = new Date();
-					dt = data1[0].dateOfShowing;
-					console.log(dt);
 					console.log(data1[0].dateOfShowing);
-					// htmlString += dt; 
-					// console.log(htmlString);//FIXME
+					htmlString += data1[0].dateOfShowing; 
+					console.log(htmlString);//FIXME
 					let content3 = document.getElementById('content3');
 					content3.innerHTML = htmlString;
+
+
+					//Printing Theatre Name and Address
+					htmlString = '';
+					let sql2 = `SELECT * FROM theatre WHERE address=\'${address}\';`;
+					console.log(sql2);
+					socket.emit('query', sql2, data3 => {
+						console.log(data3);
+						htmlString = '';
+						htmlString += data3[0].name + '<br> at <br>' + data3[0].address;
+						let content4 = document.getElementById('content4');
+						content4.innerHTML = htmlString;
+					});
+
+
+					//Printing ticket numbers and total
+					htmlString = '';
+					htmlString += `Adult Number of Tickets: ` + data1[0].adultNumofTix + `<br>Child Number of Tickets: ` + data1[0].childNumofTix + `<br>Senior Number of Tickets: ` + data1[0].seniorNumofTix + `<br>`;
+					htmlString += `Total Cost: $` + cost.toFixed(2);
+					console.log(htmlString);
+					let content5 = document.getElementById('content5');
+					content5.innerHTML = htmlString;
+
+
+					//Printing Order Status:
+					htmlString = '';
+					htmlString += `Order status: ` + data1[0].status;
+					let content6 = document.getElementById('content6');
+					content6.innerHTML = htmlString;
+
+
+
 
 					//Creating back button
 					let back = document.getElementById('back');
 					back.innerHTML = `<a href="./orderHistory.html?email=${userEmail}">back</a>`;
 
 
-
-
-
 					//Cancel Order Button and Event
 					btnCancel.addEventListener('click', e => {
-						console.log('Cancel' + orderID);
-						let sql1 = `UPDATE ticketOrder SET status="canceled" WHERE orderID=${orderID}`;
+						console.log('Cancel ' + orderID);
+						let sql3 = `UPDATE ticketOrder SET status="canceled" WHERE orderID=${orderID};`;
+						console.log(sql3);
+						socket.emit('query', sql3, data4 => {
+						});
 						location.reload();
 					});
 
