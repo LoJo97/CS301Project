@@ -23,7 +23,7 @@
 				let userEmail = search.slice(7, split);
 				console.log(userEmail);
 				let movieTitle = search.slice(split + 7);
-				movieTitle = movieTitle.replace('%20', ' ');
+				movieTitle = movieTitle.replace(/%20/g, ' ');
 				console.log(movieTitle);
 
 				//Get the user

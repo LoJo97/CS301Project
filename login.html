@@ -50,7 +50,7 @@
 					console.log(data); //Will return the result of the query
 					if(!('errno' in data) && data.length){
 						console.log(`User ${data[0].username} successfully logged on`);
-						window.location.replace(`./nowPlaying.html?email=${data[0].email}`);
+						window.location.assign(`./nowPlaying.html?email=${data[0].email}`);
 					}else{
 						sql = `SELECT email, username FROM manager WHERE (email=\'${mail}\' AND password='${pass}')`;
 
@@ -58,7 +58,7 @@
 							console.log(data2);
 							if(!('errno' in data2) && data2.length){
 								console.log(`User ${data2[0].username} successfully logged on`);
-								window.location.replace(`./chooseFunctionality.html?email=${data2[0].email}`);
+								window.location.assign(`./chooseFunctionality.html?email=${data2[0].email}`);
 							}else{
 								document.getElementById('error').innerHTML = 'Error: Invalid username/password';
 							}
