@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>View Revenue Report</title>
+	</head>
+	<body>
+		<div id="revenuereport-form">
+			<h1><u>View Revenue Report</u></h1>
+			<form>
+                <table id="revenueTable" style="margin-left: auto; margin-right: auto; width:75%" border="1" align="center">
+                </table><br><br>
+			</form>
+			<form>
+				<input id="btnBack" type="button" value="Back">
+			</form>
+		</div>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+			});
+            
+<!--            URL-->
+<!--            //Get the url query-->
+<!--            let search = window.location.search;-->
+<!--            console.log(search);-->
+<!--            let userEmail = search.slice(7, search.length);-->
+<!--            console.log(userEmail);-->
+<!--            -->
+<!--            //Get the user-->
+<!--            let sql1 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;-->
+<!--            console.log(sql1);-->
+<!--            -->
+<!--            let user;-->
+<!--            let email;-->
+<!--            socket.emit('query', sql1, data => {-->
+<!--                        console.log(data);-->
+<!--                        user = data[0].username;-->
+<!--                        email = data[0].email;-->
+<!--                        -->
+<!--                        });-->
+
+            //Get the Revenue Table
+            const revenueTable = document.getElementById('revenueTable');
+            
+            let headerRow = revenueTable.insertRow(-1);
+            var monthText = 'Month';
+            var revenueText = 'Revenue';
+            headerRow.insertCell(0).innerHTML = monthText.bold();
+            headerRow.insertCell(1).innerHTML = revenueText.bold();
+            
+            //SQL Query
+            let sql3 = `SELECT MONTHNAME(dateOfOrder) as Month, SUM(cost) AS Revenue FROM ticketOrder GROUP BY MONTHNAME(dateOfOrder) ORDER BY MONTH(dateOfOrder) ASC LIMIT 3`;
+
+            socket.emit('query', sql3, data => {
+                data.forEach(entry => {
+                    let newRow = revenueTable.insertRow(-1);
+                             newRow.insertCell(0).innerHTML = entry.Month;
+                             newRow.insertCell(1).innerHTML = entry.Revenue;
+<!--                             newRow.addEventListener('click', e => {-->
+<!--                                                     window.location.replace(`./movie.html?email=${userEmail}&title=${entry.title}`);-->
+<!--                                                     });-->
+                             
+                             });
+                        
+                });
+                
+			//Get the back button
+			const btnBack = document.getElementById('btnBack');
+
+			btnBack.addEventListener('click', e => {
+                 window.location.replace('./chooseFunctionality.html');
+			});
+		</script>
+	</body>
+</html>
