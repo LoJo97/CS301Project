@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<meta charset="UTF-8">
+		<title>Movie</title>
+	</head>
+	<body>
+		<h3>Choose Theater</h3>
+		<form>
+			Saved Theater:
+			<select id="pref"></select>
+			<input id="btnChooseSaved" type="button" value="Choose"> <br> <br>
+			Search:
+			<input id="txtSearch" type="text">
+			<input id="btnChooseSearch" type="button" value="Choose"> <br>
+		</form>
+		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script>
+			//Connect to host
+			const socket = io('http://localhost:3000');
+			//Print message once connected
+			socket.on('connect', () => {
+				console.log('Socket connected? ' + socket.connected);
+
+				//Get the url query
+				let search = window.location.search;
+				console.log(search);
+				let split = search.search('&'); //Break up the query into the email and title
+				let userEmail = search.slice(7, split);
+				console.log(userEmail);
+				let movieTitle = search.slice(split + 7);
+				movieTitle = movieTitle.replace(/%20/g, ' ');
+				console.log(movieTitle);
+
+				//Get the dropDown bar
+				let dropDown = document.getElementById('pref');
+
+				//Get the movie
+				let sql1 = `SELECT name, address FROM theatre NATURAL JOIN preferences WHERE email='${userEmail}'`;
+				console.log(sql1);
+
+				socket.emit('query', sql1, data => {
+					console.log(data);
+					data.forEach(entry => {
+						let option = document.createElement('option');
+						option.text = `${entry.address}`;
+						dropDown.add(option);
+					});
+				});
+
+				//Get buttons
+				let btnSaved = document.getElementById('btnChooseSaved');
+				let btnSearch = document.getElementById('btnChooseSearch');
+
+				//Get search box
+				let choice = document.getElementById('txtSearch');
+
+				btnSaved.addEventListener('click', e => {
+					window.location.assign(`./selectTime.html?email=${userEmail}&movie=${movieTitle}&theatre=${dropDown.value}`);
+				});
+
+				btnSearch.addEventListener('click', e => {
+					window.location.assign(`./searchTheatreResults.html?email=${userEmail}email}&movie=${movieTitle}&search=${choice.value}`);
+				});
+			});
+		</script>
+	</body>
+</html>
