@@ -1,0 +1,202 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <meta charset="UTF-8">
+    <title>Review</title>
+</head>
+<body style="text-align:left; margin-left: 50px">
+    <div>
+        <div style="text-align: center">
+            <h1>Buy Ticket</h1>
+        </div>
+        <div style="text-align:center">
+
+        </div>
+        <div style="margin-left: 50px; margin-top: 50px; margin-right:50px; border-bottom:solid; text-align:center">
+            <div style="display:inline-block;">
+                <p id="movie" style="height:5px"></p>
+                <p id="rating" style="display:inline-block; height:5px"></p>
+                <p id="length" style="display:inline-block; height:5px"></p>
+                <h3 id="date" style="display:inline-block; height:5px">December</h3>
+                <p id="day" style="display:inline-block; height:5px"></p>
+                <p id="time"></p>
+            </div>
+            <div style="display:inline-block; vertical-align:top; margin-left: 125px">
+                <p id="theatreName" ></p>
+                <p id="theatre"></p>
+                <p></p>
+            </div>
+        </div>
+        <div>
+            <p style="display:inline-block; width: 100px; text-align:right">Adult Matinee</p>
+            <select id="normalPrice" onchange="changeAdult(this)" style="margin-top: 20px;">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <br />
+            <p style="display:inline-block; width: 100px; text-align:right">Senior</p>
+            <select id="seniorPrice" onchange="changeSenior(this)" style="margin-top: 20px">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <br />
+            <p style="display:inline-block; width: 100px; text-align:right">Child</p>
+            <select id="childPrice" onchange="changeChild(this)" style="margin-top: 20px">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <div>
+                <a class="btn red" onclick="goBack()" style="margin-top: 50px;">Back</a>
+                <a class="btn green" onclick="submitTickets()">Next</a>
+            </div>
+        </div>
+    </div>
+    <p id="email" style="display:none"></p>
+    <p id="price" style="display:none"></p>
+    <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        //Connect to host
+        const socket = io('http://localhost:3000');
+        //Print message once connected
+        socket.on('connect', () => {
+            console.log('Socket connected? ' + socket.connected);
+
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let split = search.search('&'); //Break up the query into the email and title
+            let userEmail = search.slice(7, split);
+            console.log(userEmail);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let movieTitle = search.slice(6, split);
+            movieTitle = movieTitle.replace(/%20/g, ' ');
+            console.log(movieTitle);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let theatre = search.slice(8, split);
+            theatre = theatre.replace(/%20/g, ' ');
+            console.log(theatre);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let time = search.slice(6);
+            time = time.replace(/%20/g, ' ');
+            console.log(time);
+
+            //set elements
+            let movie = document.getElementById("movie");
+            movie.value = movieTitle;
+            movie.innerHTML = `<h2>${movieTitle}</h2>`;
+            document.getElementById("theatre").innerHTML = `<h3>${theatre}</h3>`;
+            var movieTime = time.substr(11, 5);
+            var hours = movieTime.substr(0, 2);
+            var minutes = movieTime.substr(3);
+            var clock = 'AM';
+            if (hours >= 12)
+                clock = 'PM';
+            if (hours > 12) {
+                hours = hours - 12;
+            }
+            document.getElementById("time").innerHTML = `<h3> ${hours}:${minutes} ${clock}</h3>`;
+            var day = time.substr(9, 2);
+            document.getElementById("day").innerHTML = `<h3>${day}</h3>`;;
+
+            let sql = `SELECT price FROM screening WHERE screenTime = '${time}' AND title = '${movieTitle}'`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+                let priceElements = document.getElementsByClassName("price");
+                priceElements[0].innerHTML = `<p style="display:inline-block;">* ${data[0].price}</p>`;
+                priceElements[1].innerHTML = `<p style="display:inline-block;">* ${data[0].price} * 0.8</p>`;
+                priceElements[2].innerHTML = `<p style="display:inline-block;">* ${data[0].price} * 0.7</p>`;
+                document.getElementById("price").value = data[0].price;
+            });
+
+            let sql2 = `SELECT name FROM theatre WHERE address = '${theatre}'`;
+            socket.emit('query', sql2, data => {
+                console.log(data);
+                document.getElementById("theatreName").innerHTML = `<h2>${data[0].name}</h2>`;
+            });
+
+            let sql3 = `SELECT rating, length FROM movie WHERE title = '${movieTitle}'`;
+            socket.emit('query', sql3, data => {
+                console.log(data);
+                document.getElementById("rating").innerHTML = `<h3>${data[0].rating}, </h3>`;
+                var minutes = (data[0].length) % 60;
+                var hours = ((data[0].length) / 60).toFixed(0);
+                document.getElementById("length").innerHTML = `<h3>${hours} hr ${minutes} min</h3>`;
+            });
+
+
+        });
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        function changeAdult(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[0].innerHTML = `<p style="display:inline-block;">* ${price}</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value).toFixed(2);
+            priceElements[0].innerHTML = `<p style="display:inline-block;">* ${price} = ${totalPrice}</p>`;
+        }
+    </script>
+    <script>
+        function changeSenior(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[1].innerHTML = `<p style="display:inline-block;">* ${price} * 0.8</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value * .8).toFixed(2);
+            priceElements[1].innerHTML = `<p style="display:inline-block;">* ${price} * 0.8 = ${totalPrice}</p>`;
+        }
+    </script>
+    <script>
+        function changeChild(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[2].innerHTML = `<p style="display:inline-block;">* ${price} * 0.7</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value * .7).toFixed(2);
+            priceElements[2].innerHTML = `<p style="display:inline-block;">* ${price} * 0.7 = ${totalPrice}</p>`;
+        }
+    </script>
+</body>

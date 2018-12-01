@@ -1,0 +1,142 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <meta charset="UTF-8">
+    <title>Review</title>
+</head>
+<body style="text-align:left; margin-left: 50px">
+    <div>
+        <div style="text-align: center">
+            <h1>Select Time</h1>
+        </div>
+        <div style="text-align:center">
+            <a id="3" class="btn selected" onclick="changeDate(this)">December 3</a>
+            <a id="4" class="btn notSelected" onclick="changeDate(this)">December 4</a>
+            <a id="5" class="btn notSelected" onclick="changeDate(this)">December 5</a>
+            <a id="6" class="btn notSelected" onclick="changeDate(this)">December 6</a>
+            <a id="7" class="btn notSelected" onclick="changeDate(this)">December 7</a>
+            <a id="8" class="btn notSelected" onclick="changeDate(this)">December 8</a>
+            <a id="9" class="btn notSelected" onclick="changeDate(this)">December 9</a>
+        </div>
+        <div style="margin-left: 50px; margin-top: 50px;">
+            <p id="movie"></p>
+            <table id="times"></table>
+        </div>
+        <div>
+            <a class="btn red" onclick="goBack()" style="margin-top: 50px;">Back</a>
+            <a class="btn green" onclick="submit()" style="display: none">Submit</a>
+        </div>
+        <p style="display:inline-block" id="SubmitButton"></p>
+        <p id="email" style="display:none"></p>
+        <p id="theatre" style="display:none"></p>
+        <p id="time" style="display:none"></p>
+
+    </div>
+    <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        //Connect to host
+        const socket = io('http://localhost:3000');
+        //Print message once connected
+        socket.on('connect', () => {
+            console.log('Socket connected? ' + socket.connected);
+
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let split = search.search('&'); //Break up the query into the email and title
+            let userEmail = search.slice(7, split);
+            console.log(userEmail);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let movieTitle = search.slice(6, split);
+            movieTitle = movieTitle.replace(/%20/g, ' ');
+            console.log(movieTitle);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let theatre = search.slice(8);
+            theatre = theatre.replace(/%20/g, ' ');
+            console.log(theatre);
+
+            //set elements
+            document.getElementById("email").value = userEmail;
+            let movie = document.getElementById("movie");
+            movie.value = movieTitle;
+            movie.innerHTML = `<h3>${movieTitle}</h3>`;
+            document.getElementById("theatre").value = theatre;
+
+            let sql = `SELECT screenTime FROM screening WHERE screenTime >= '2018-12-03 00:00:00' AND screenTime < '2018-12-04 00:00:00' AND title = '${movieTitle}' AND address = '${theatre}' ORDER BY screenTime`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+                
+            })
+            
+            
+        });
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        function changeDate(button) {
+            var table = document.getElementById("times");
+            table.innerHTML = "";
+            var oldButton = document.getElementsByClassName("btn selected")[0];
+            if (button == oldButton) {
+                return;
+            }
+            oldButton.className = "btn notSelected"
+            button.className = "btn selected";
+            getMovies(button.id);
+        }
+    </script>
+    <script>
+        function getMovies(val) {
+            let movie = document.getElementById("movie").value;
+            let screens = document.getElementById("times");
+            let theatre = document.getElementById("theatre").value;
+            let sql = `SELECT screenTime FROM screening WHERE screenTime >= '2018-12-0${val} 00:00:00' AND screenTime < '2018-12-0${val + 1} 00:00:00' AND title = '${movie}' AND address = '${theatre}' ORDER BY screenTime`;
+            console.log(sql);
+            const socket = io('http://localhost:3000');
+            socket.emit('query', sql, data => {
+                console.log(data);
+                let newRow = screens.insertRow(0);
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    var time = (data[i].screenTime).substr(11, 5);
+                    var hours = time.substr(0, 2);
+                    var minutes = time.substr(3);
+                    var clock = 'AM';
+                    if (hours >= 12)
+                        clock = 'PM';
+                    if (hours > 12) {
+                        hours = hours - 12;
+                    }
+                    newRow.insertCell(i).innerHTML = `<a class="btn notChosen" onclick="pickTime(this)" id="${data[i].screenTime}">` + hours + ':'  + minutes + ' ' + clock + '</a>';
+                }
+            });
+        }
+    </script>
+    <script>
+        function pickTime(button) {
+            var oldButton = document.getElementsByClassName("btn chosen")[0];
+            if (button == oldButton) {
+                return;
+            }
+            if(oldButton)
+                oldButton.className = "btn notChosen"
+            button.className = "btn chosen";
+            document.getElementById("time").value = button.id;
+            document.getElementsByClassName("btn green")[0].style.display = "inline-block";
+        }
+    </script>
+    <script>
+        function submit() {
+            let movie = document.getElementById("movie").value;
+            let email = document.getElementById("email").value;
+            let theatre = document.getElementById("theatre").value;
+            let time = document.getElementById("time").value;
+            window.location.href = `./ticket.html?email=${email}&title=${movie}&theatre=${theatre}&value=${time}`
+        }
+    </script>
+</body>

@@ -8,18 +8,41 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn{
+.btn {
     padding: 15px 32px;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
 }
-.btn.green{
-    background-color: green;
-    color: white;
-}
-.btn.red{
-    background-color: red;
-    color: white;
-}
+
+    .btn.green {
+        background-color: green;
+        color: white;
+    }
+
+    .btn.red {
+        background-color: red;
+        color: white;
+    }
+
+    .btn.selected {
+        background-color: black;
+        color: white;
+    }
+
+    .btn.notSelected {
+        background-color: white;
+        color: black;
+        border:solid;
+        border-color:black;
+    }
+    .btn.chosen {
+        background-color: orangered;
+        color: white;
+    }
+
+    .btn.notChosen {
+        background-color: orange;
+        color: black;
+    }
