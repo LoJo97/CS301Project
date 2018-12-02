@@ -82,8 +82,9 @@
             let sql = `INSERT INTO review (rTitle, COMMENT, rating, mTitle, email, reviewID) VALUES ('${title}', '${comment}', ${rating}, '${movie}', '${email}', ${reviewId})`;
             socket.emit('query', sql, data => {
                 console.log(data);
+                window.history.back();
             });
-            window.history.back();
+
         }
     </script>
 </body>
