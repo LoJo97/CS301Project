@@ -43,7 +43,7 @@
             headerRow.insertCell(2).innerHTML = numOrdersText.bold();
             
             //SQL Query
-            let sql1 = `SELECT * FROM (SELECT @rn:=if(@prv=MONTHNAME(dateOfShowing), @rn+1, 1) as rn, @prv:=MONTHNAME(dateOfShowing) as month, title, count(title) as count FROM ticketOrder JOIN (SELECT @prv:=0, @rn:=0)tmp WHERE status = 'completed' GROUP BY title ORDER BY MONTH(dateOfShowing) ASC, count(title) DESC) a where rn <= 3`;
+            let sql1 = `SELECT * FROM (SELECT @rn:=if(@prv=MONTHNAME(dateOfShowing), @rn+1, 1) as rn, @prv:=MONTHNAME(dateOfShowing) as month, title, count(title) as count FROM ticketOrder JOIN (SELECT @prv:=0, @rn:=0)tmp WHERE status = 'completed' GROUP BY title, MONTHNAME(dateOfShowing) ORDER BY MONTH(dateOfShowing) ASC, count(title) DESC) a where rn <= 3`;
             console.log(sql1);
                    
             socket.emit('query', sql1, data => {
