@@ -8,14 +8,8 @@
 	<body>
 		<div id="chooseFunctionality-form">
 			<h1><u>Choose Functionality</u></h1>
-			<form>
-				<a style="color:#0000EE;" href="revenueReport.html">
-					View Revenue Report
-				</a><br><br>
-				<a style="color:#0000EE;" href="popularMovieReport.html">
-					View Popular Movie Report
-				</a><br><br>
-			</form>
+            <p id="revenue"></p>
+            <p id="popularMovie"></p>
 			<form>
 				<input id="btnLogOut" type="button" value="Log Out">
 			</form>
@@ -28,13 +22,24 @@
 			socket.on('connect', () => {
 				console.log('Socket connected? ' + socket.connected);
 			});
+            
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let userEmail = search.slice(7, search.length);
+            console.log(userEmail);
+            
+            let revenueLink = document.getElementById('revenue');
+            revenueLink.innerHTML = `<a href="./revenueReport.html?email=${userEmail}">View Revenue Report</a> <br><br>`;
+            let popularMovieLink = document.getElementById('popularMovie');
+            popularMovieLink.innerHTML = `<a href="./popularMovieReport.html?email=${userEmail}">View Popular Movie Report</a> <br><br>`;
             //Get the login button
             const btnLogOut = document.getElementById('btnLogOut');
             
             //When button is clicked, emit a query to server
             btnLogOut.addEventListener('click', e => {
-                                     window.location.replace('./login.html');
-                                     });
+                window.location.replace('./login.html');
+            });
 		</script>
 	</body>
 </html>
