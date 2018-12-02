@@ -68,7 +68,7 @@
             const socket = io('http://localhost:3000');
             var email = document.getElementById("email").value;
             var movie = document.getElementById("MovieTitle").value;
-            let sql = `SELECT status FROM ticketorder WHERE email = '${email}' AND title = '${movie}'`;
+            let sql = `SELECT status FROM ticketOrder WHERE email = '${email}' AND title = '${movie}'`;
             socket.emit('query', sql, data => {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
