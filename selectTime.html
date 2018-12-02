@@ -1,7 +1,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <meta charset="UTF-8">
-    <title>Review</title>
+    <title>Select Time</title>
 </head>
 <body style="text-align:left; margin-left: 50px">
     <div>
@@ -66,10 +66,7 @@
             let sql = `SELECT screenTime FROM screening WHERE screenTime >= '2018-12-03 00:00:00' AND screenTime < '2018-12-04 00:00:00' AND title = '${movieTitle}' AND address = '${theatre}' ORDER BY screenTime`;
             socket.emit('query', sql, data => {
                 console.log(data);
-                
-            })
-            
-            
+            });            
         });
     </script>
     <script>
