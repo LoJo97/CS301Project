@@ -11,7 +11,7 @@
         <table id="Reviews" border="1" align="center"></table>
         <p id="NewReview" onclick="newReview()" style="margin-top:15px; text-align:center"></p>
         <p id="BackButton"></p>
-        <p id="username" style="display:none"></p>
+        <p id="email" style="display:none"></p>
     </div>
     <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
     <script>
@@ -34,7 +34,7 @@
             let title = document.getElementById('MovieTitle');
             title.innerHTML = `<h1>${movieTitle}</h1>`;
             title.value = movieTitle;
-            document.getElementById("username").value = userEmail;
+            document.getElementById("email").value = userEmail;
             let newReview = document.getElementById('NewReview');
             newReview.innerHTML = `<a class="btn green">Give Review</a>`
             let back = document.getElementById('BackButton');
@@ -66,7 +66,7 @@
     <script>
         function newReview() {
             const socket = io('http://localhost:3000');
-            var email = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
             var movie = document.getElementById("MovieTitle").value;
             let sql = `SELECT status FROM ticketorder WHERE email = '${email}' AND title = '${movie}'`;
             socket.emit('query', sql, data => {

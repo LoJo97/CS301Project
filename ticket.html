@@ -1,0 +1,348 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <meta charset="UTF-8">
+    <title>Review</title>
+</head>
+<body style="text-align:left; margin-left: 50px">
+    <div>
+        <div style="text-align: center">
+            <h1>Buy Ticket</h1>
+        </div>
+        <div style="text-align:center">
+
+        </div>
+        <div style="margin-left: 50px; margin-top: 50px; margin-right:50px; border-bottom:solid; text-align:center">
+            <div style="display:inline-block;">
+                <p id="movie" style="height:5px"></p>
+                <p id="rating" style="display:inline-block; height:5px"></p>
+                <p id="length" style="display:inline-block; height:5px"></p>
+                <h3 id="date" style="display:inline-block; height:5px">December</h3>
+                <p id="day" style="display:inline-block; height:5px"></p>
+                <p id="time"></p>
+            </div>
+            <div style="display:inline-block; vertical-align:top; margin-left: 125px">
+                <p id="theatreName"></p>
+                <p id="theatre"></p>
+                <p></p>
+            </div>
+        </div>
+        <div id="numTickets">
+            <h3>How many tickets?</h3>
+            <p style="display:inline-block; width: 100px; text-align:right">Adult Matinee</p>
+            <select id="normalPrice" onchange="changeAdult(this)" style="margin-top: 20px;">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <br />
+            <p style="display:inline-block; width: 100px; text-align:right">Senior</p>
+            <select id="seniorPrice" onchange="changeSenior(this)" style="margin-top: 20px">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <br />
+            <p style="display:inline-block; width: 100px; text-align:right">Child</p>
+            <select id="childPrice" onchange="changeChild(this)" style="margin-top: 20px">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+            <p style="display:inline-block;" class="price"></p>
+            <div>
+                <a class="btn red" onclick="goBack()" style="margin-top: 50px;">Back</a>
+                <a class="btn green" onclick="submitTickets()">Next</a>
+            </div>
+        </div>
+        <div id="payment" style="display:none;">
+            <h3>Payment Information</h3>
+            <div>
+                Use a saved card:
+                <select id="pref"></select>
+                <input type="button" value="Buy Ticket" onclick="submitPayment()"> <br> <br>
+            </div>
+            <div>
+                Name on Card <input id="nameOnCard" style="margin-top: 10px" />
+                <br />
+                Card Number <input id="newCardNum" style="margin-top: 10px" maxlength="16" />
+                <br />
+                CVV <input id="CVV" style="margin-top: 10px" maxlength="3" />
+                <br />
+                Expiration Date <input id="expiration" style="margin-top: 10px" type="month" min="2018-12" />
+                <br />
+                Save card <input id="saveCard" type="checkbox" />
+                <input type="button" value="Buy Ticket" onclick="submitPayment2()"> <br> <br>
+            </div>
+            <div>
+                <a class="btn red" onclick="goToTickets()" style="margin-top: 50px;">Back</a>
+            </div>
+        </div>
+        <div id="confirmation" style="display:none;">
+            <h3>Confirmation</h3>
+            <h4 style="display:inline-block">Order ID: </h4><p id="confirmationId" style="display:inline-block"></p>
+            <p>Thank you for your purchase!</p>
+            <div>
+                <a class="btn green" onclick="returnHome()">Ok</a>
+            </div>
+        </div>
+    </div>
+    <p id="email" style="display:none"></p>
+    <p id="price" style="display:none"></p>
+    <p id="datetime" style="display:none"></p>
+    <p id="orderId" style="display:none"></p>
+    <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        //Connect to host
+        const socket = io('http://localhost:3000');
+        //Print message once connected
+        socket.on('connect', () => {
+            console.log('Socket connected? ' + socket.connected);
+
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let split = search.search('&'); //Break up the query into the email and title
+            let userEmail = search.slice(7, split);
+            console.log(userEmail);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let movieTitle = search.slice(6, split);
+            movieTitle = movieTitle.replace(/%20/g, ' ');
+            console.log(movieTitle);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let theatre = search.slice(8, split);
+            theatre = theatre.replace(/%20/g, ' ');
+            console.log(theatre);
+            search = search.slice(split + 1);
+            split = search.search('&');
+            let time = search.slice(6);
+            time = time.replace(/%20/g, ' ');
+            console.log(time);
+
+            //set elements
+            document.getElementById("email").value = userEmail;
+            document.getElementById("datetime").value = time;
+            let movie = document.getElementById("movie");
+            movie.value = movieTitle;
+            movie.innerHTML = `<h2>${movieTitle}</h2>`;
+            let address = document.getElementById("theatre");
+            address.value = theatre;
+            address.innerHTML = `<h3>${theatre}</h3>`;
+            var movieTime = time.substr(11, 5);
+            var hours = movieTime.substr(0, 2);
+            var minutes = movieTime.substr(3);
+            var clock = 'AM';
+            if (hours >= 12)
+                clock = 'PM';
+            if (hours > 12) {
+                hours = hours - 12;
+            }
+            document.getElementById("time").innerHTML = `<h3> ${hours}:${minutes} ${clock}</h3>`;
+            var day = time.substr(9, 2);
+            document.getElementById("day").innerHTML = `<h3>${day}</h3>`;;
+
+            let sql = `SELECT price FROM screening WHERE screenTime = '${time}' AND title = '${movieTitle}'`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+                let priceElements = document.getElementsByClassName("price");
+                priceElements[0].innerHTML = `<p style="display:inline-block;">* ${data[0].price}</p>`;
+                priceElements[1].innerHTML = `<p style="display:inline-block;">* ${data[0].price} * 0.8</p>`;
+                priceElements[2].innerHTML = `<p style="display:inline-block;">* ${data[0].price} * 0.7</p>`;
+                document.getElementById("price").value = data[0].price;
+            });
+
+            let sql2 = `SELECT name FROM theatre WHERE address = '${theatre}'`;
+            socket.emit('query', sql2, data => {
+                console.log(data);
+                document.getElementById("theatreName").innerHTML = `<h2>${data[0].name}</h2>`;
+            });
+
+            let sql3 = `SELECT rating, length FROM movie WHERE title = '${movieTitle}'`;
+            socket.emit('query', sql3, data => {
+                console.log(data);
+                document.getElementById("rating").innerHTML = `<h3>${data[0].rating}, </h3>`;
+                var minutes = (data[0].length) % 60;
+                var hours = ((data[0].length) / 60).toFixed(0);
+                document.getElementById("length").innerHTML = `<h3>${hours} hr ${minutes} min</h3>`;
+            });
+
+            let sql4 = `SELECT MAX(orderID) AS orderId FROM ticketorder`;
+            socket.emit('query', sql4, data => {
+                console.log(data);
+                document.getElementById("orderId").value = data[0].orderId + 1;
+            });
+
+        });
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        function changeAdult(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[0].innerHTML = `<p style="display:inline-block;">* ${price}</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value).toFixed(2);
+            priceElements[0].innerHTML = `<p style="display:inline-block;">* ${price} = ${totalPrice}</p>`;
+        }
+    </script>
+    <script>
+        function changeSenior(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[1].innerHTML = `<p style="display:inline-block;">* ${price} * 0.8</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value * .8).toFixed(2);
+            priceElements[1].innerHTML = `<p style="display:inline-block;">* ${price} * 0.8 = ${totalPrice}</p>`;
+        }
+    </script>
+    <script>
+        function changeChild(item) {
+            let price = document.getElementById("price").value;
+            let priceElements = document.getElementsByClassName("price");
+            if (item.value == 0) {
+                priceElements[2].innerHTML = `<p style="display:inline-block;">* ${price} * 0.7</p>`;
+                return;
+            }
+            let totalPrice = (price * item.value * .7).toFixed(2);
+            priceElements[2].innerHTML = `<p style="display:inline-block;">* ${price} * 0.7 = ${totalPrice}</p>`;
+        }
+    </script>
+    <script>
+        function submitTickets() {
+            let adultTix = document.getElementById("normalPrice").value;
+            let childTix = document.getElementById("childPrice").value;
+            let seniorTix = document.getElementById("seniorPrice").value;
+            if (adultTix == 0 && childTix == 0 && seniorTix == 0) {
+                alert('Select at least one ticket!');
+                return;
+            }
+            document.getElementById("numTickets").style.display = "none";
+            document.getElementById("payment").style.display = "block";
+            const socket = io('http://localhost:3000');
+            let email = document.getElementById('email').value;
+            let dropDown = document.getElementById('pref');
+            let sql = `SELECT cardNum FROM paymentinfo WHERE email = '${email}'`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+                data.forEach(entry => {
+                    let option = document.createElement('option');
+                    option.text = `${entry.cardNum}`;
+                    dropDown.add(option);
+                });
+            });
+        }
+    </script>
+    <script>
+        function goToTickets() {
+            document.getElementById("payment").style.display = "none";
+            document.getElementById("numTickets").style.display = "block";
+        }
+    </script>
+    <script>
+        function submitPayment() {
+            document.getElementById("payment").style.display = "none";
+            document.getElementById("confirmation").style.display = "block";
+            const socket = io('http://localhost:3000');
+            let price = document.getElementById("price").value;
+            let orderId = document.getElementById("orderId").value;
+            let adultTix = document.getElementById("normalPrice").value;
+            let childTix = document.getElementById("childPrice").value;
+            let seniorTix = document.getElementById("seniorPrice").value;
+            let totalPrice = ((price * adultTix) + (price * .7 * childTix) + (price * .8 * seniorTix)).toFixed(2);
+            let email = document.getElementById("email").value;
+            let address = document.getElementById("theatre").value;
+            let title = document.getElementById("movie").value;
+            let showing = document.getElementById("datetime").value;
+            let cardNum = document.getElementById("pref").value;
+            let sql = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
+            socket.emit('query', sql, data => {
+                console.log(data);
+            });
+            document.getElementById("confirmationId").innerHTML = `<h4>${orderId}</h4>`
+        }
+    </script>
+    <script>
+        function submitPayment2() {
+            let email = document.getElementById("email").value;
+            let name = document.getElementById("nameOnCard").value;
+            let cardNum = document.getElementById("newCardNum").value;
+            let cvv = document.getElementById("CVV").value;
+            let expiration = document.getElementById("expiration").value;
+            let checkbox = document.getElementById("saveCard");
+            if (!name || !cardNum || !cvv || !expiration) {
+                alert('All fields must be filled in!');
+                return;
+            }
+            var month = expiration.substr(5, 2);
+            var year = expiration.substr(0, 4);
+            if (month < 12 && year <= 2018) {
+                alert('Invalid expiration date!');
+                return;
+            }
+            const socket = io('http://localhost:3000');
+            if (checkbox.checked) {
+                let sql = `INSERT INTO paymentinfo (name, CVV, expoDate, cardNum, email) VALUES ('${name}', ${cvv}, '${month}-${year}', '${cardNum}', '${email}')`;
+                socket.emit('query', sql, data => {
+                    console.log(data);
+                });
+            }
+            let price = document.getElementById("price").value;
+            let orderId = document.getElementById("orderId").value;
+            let adultTix = document.getElementById("normalPrice").value;
+            let childTix = document.getElementById("childPrice").value;
+            let seniorTix = document.getElementById("seniorPrice").value;
+            let totalPrice = ((price * adultTix) + (price * .7 * childTix) + (price * .8 * seniorTix)).toFixed(2);
+            let address = document.getElementById("theatre").value;
+            let title = document.getElementById("movie").value;
+            let showing = document.getElementById("datetime").value;
+            let sql2 = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
+            socket.emit('query', sql2, data => {
+                console.log(data);
+            });
+            document.getElementById("confirmationId").innerHTML = `<h4>${orderId}</h4>`
+            document.getElementById("payment").style.display = "none";
+            document.getElementById("confirmation").style.display = "block";
+        }
+    </script>
+    <script>
+        function returnHome() {
+            var email = document.getElementById("email").value;
+            window.location.href = `./nowPlaying.html?email=${email}`;
+        }
+    </script>
+</body>
