@@ -193,7 +193,7 @@
                 document.getElementById("length").innerHTML = `<h3>${hours} hr ${minutes} min</h3>`;
             });
 
-            let sql4 = `SELECT MAX(orderID) AS orderId FROM ticketorder`;
+            let sql4 = `SELECT MAX(orderID) AS orderId FROM ticketOrder`;
             socket.emit('query', sql4, data => {
                 console.log(data);
                 document.getElementById("orderId").value = data[0].orderId + 1;
@@ -256,7 +256,7 @@
             const socket = io('http://localhost:3000');
             let email = document.getElementById('email').value;
             let dropDown = document.getElementById('pref');
-            let sql = `SELECT cardNum FROM paymentinfo WHERE email = '${email}'`;
+            let sql = `SELECT cardNum FROM paymentInfo WHERE email = '${email}'`;
             socket.emit('query', sql, data => {
                 console.log(data);
                 data.forEach(entry => {
@@ -289,7 +289,7 @@
             let title = document.getElementById("movie").value;
             let showing = document.getElementById("datetime").value;
             let cardNum = document.getElementById("pref").value;
-            let sql = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
+            let sql = `INSERT INTO ticketOrder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
             socket.emit('query', sql, data => {
                 console.log(data);
             });
