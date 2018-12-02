@@ -196,25 +196,25 @@ INSERT INTO `preferences`(`email`, `address`) VALUES ("tcook@crimson.ua.edu","39
 
 /***Adding 15 Movies***/
 /*Already Released*/
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Captain America","Marvel/Action",190,"11-05-18", "Strong man throws shield at nazis during WWII", "PG-13");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Black Panther","Marvel/Action",140,"11-06-18", "Black man eats flower and can move like a panther. AFRICA", "PG-13");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Deadpool","Marvel/Action",120,"11-23-18", "Fourth Wall Broken, Very Crude Comedy", "R");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("The Avengers","Marvel/Action",125,"11-22-18", "Lots of do-gooders form a do-gooder club", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars IV: A New Hope","Fantasy",220,"11-11-18", "Old monk with laser sword indoctrinates young man into jedi cult", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars V: The Empire Strikes Back","Fantasy",230,"11-12-18", "Old man with breathing problems takes revenge on innocent child", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars VI: Return of the Jedi","Fantasy",240,"11-13-18", "Teddy Bears turn out to be valiant fighters and save the empire", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars I: The Phantom Menace","Fantasy",250,"11-14-18", "Darth Maul tries to redeem the movie for creating worst character ever", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars II: Attack of the Clones","Fantasy",260,"11-15-18", "Yoda fight scene is awesome, sand gets everywhere", "PG");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars III: Revenge of the Sith","Fantasy",270,"11-16-18", "Turns out Anakin might not be a great guy", "PG-13");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Captain America","Marvel/Action",190,"11-01-18", "Strong man throws shield at nazis during WWII", "PG-13");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Black Panther","Marvel/Action",140,"11-01-18", "Black man eats flower and can move like a panther. AFRICA", "PG-13");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Deadpool","Marvel/Action",120,"11-01-18", "Fourth Wall Broken, Very Crude Comedy", "R");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("The Avengers","Marvel/Action",125,"11-01-18", "Lots of do-gooders form a do-gooder club", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars IV: A New Hope","Fantasy",220,"11-01-18", "Old monk with laser sword indoctrinates young man into jedi cult", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars V: The Empire Strikes Back","Fantasy",230,"11-01-18", "Old man with breathing problems takes revenge on innocent child", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars VI: Return of the Jedi","Fantasy",240,"11-01-18", "Teddy Bears turn out to be valiant fighters and save the empire", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars I: The Phantom Menace","Fantasy",250,"11-01-18", "Darth Maul tries to redeem the movie for creating worst character ever", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars II: Attack of the Clones","Fantasy",260,"11-01-18", "Yoda fight scene is awesome, sand gets everywhere", "PG");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Star Wars III: Revenge of the Sith","Fantasy",270,"11-01-18", "Turns out Anakin might not be a great guy", "PG-13");
 /*Test Movie*/
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("testMovie","Soap Opera",100,"11-00-18", "Test Synopsis", "G");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("testMovie","Soap Opera",100,"11-01-18", "Test Synopsis", "G");
 
 /*Change these to upcoming release if we want*/
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("James Bond","Thriller/Action",160,"12-1-18", "Spy called James Bond tries to defeat bad guys", "R");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Infinity War","Marvel/Action",240,"12-2-18", "Large purple gollum tries to find his precious stones", "PG-13");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("John Wick","Action",175,"11-24-18", "Keanu Reeves kills a lot of people", "R");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Gran Torino","Drama",500,"11-23-18", "Racist old man acts racist but everyone loves this movie for some reason", "R");
-INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Toy Story","Adventure",213,"11-29-18", "Two toys come to life and go on grand adventure", "G");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("James Bond","Thriller/Action",160,"12-01-18", "Spy called James Bond tries to defeat bad guys", "R");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Infinity War","Marvel/Action",240,"12-01-18", "Large purple gollum tries to find his precious stones", "PG-13");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("John Wick","Action",175,"11-01-18", "Keanu Reeves kills a lot of people", "R");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Gran Torino","Drama",500,"11-01-18", "Racist old man acts racist but everyone loves this movie for some reason", "R");
+INSERT INTO `movie`(`title`, `genre`, `length`, `releaseDate`, `synopsis`, `rating`) VALUES ("Toy Story","Adventure",213,"11-01-18", "Two toys come to life and go on grand adventure", "G");
 
 
 /***Adding Some cast idk if I have one for ALL movies***/
@@ -360,6 +360,60 @@ INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumo
 (24.00,"2018-11-16","completed",18,2,0,0,"vbbasilio@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Deadpool","2018-11-21 21:30:00","1234567891011123");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
 (24.00,"2018-11-16","completed",19,2,0,0,"bgates@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Deadpool","2018-11-21 21:30:00","2323232323232323");
+
+
+
+
+/***Adding fifteen orders so that all reviewers have seen the movie they wrote a review for***/
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",40,1,0,0,"vbbasilio@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Captain America","2018-11-21 21:30:00","1234567891011123");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",41,1,0,0,"lajordan3@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Black Panther","2018-11-21 21:30:00","43214321432142321");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",42,1,0,0,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Black Panther","2018-11-21 21:30:00","1234123412341234");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",43,1,0,0,"dtrump@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars IV: A New Hope","2018-11-21 21:30:00","3333333333333333");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",44,1,0,0,"nlmorgan@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","The Avengers","2018-11-21 21:30:00","2222222222222222");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",45,1,0,0,"mzuckerberg@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars V: The Empire Strikes Back","2018-11-21 21:30:00","5555555555555555");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",46,1,0,0,"bgates@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars VI: Return of the Jedi","2018-11-21 21:30:00","2323232323232323");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",47,1,0,0,"emusk@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-11-21 21:30:00","7777777777777777");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",48,1,0,0,"jbezos@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars II: Attack of the Clones","2018-11-21 21:30:00","8888888888888888");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",49,1,0,0,"jdoe@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars III: Revenge of the Sith","2018-11-21 21:30:00","9999999999999999");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",50,1,0,0,"test@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","testMovie","2018-11-21 21:30:00","6666666666666666");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",51,1,0,0,"tcook@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","James Bond","2018-11-21 21:30:00","2121212121212121");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",52,1,0,0,"nlmorgan@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Infinity War","2018-11-21 21:30:00","2222222222222222");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",53,1,0,0,"dtrump@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","John Wick","2018-11-21 21:30:00","3333333333333333");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",54,1,0,0,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Gran Torino","2018-11-21 21:30:00","1234123412341234");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",55,1,0,0,"mzuckerberg@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Toy Story","2018-11-21 21:30:00","5555555555555555");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",56,1,0,0,"mzuckerberg@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Toy Story","2018-11-21 21:30:00","5555555555555555");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",57,1,0,0,"nlmorgan@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Captain America","2018-11-21 21:30:00","2222222222222222");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",58,1,0,0,"lajordan3@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","testMovie","2018-11-21 21:30:00","4321432143214321");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",59,1,0,0,"bgates@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars IV: A New Hope","2018-11-21 21:30:00","2323232323232323");
+INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
+(12.00,"2018-11-18","completed",60,1,0,0,"tcook@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Deadpool","2018-11-21 21:30:00","2121212121212121");
+
+
+
+
+
+
+
 
 
 
