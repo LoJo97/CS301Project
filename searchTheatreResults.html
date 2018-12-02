@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <meta charset="UTF-8">
+        <title>Search Theatre Results</title>
+    </head>
+    <body>
+        <div id="searchTheatreResults-form">
+            <h1><u>Results</u></h1>
+            <p id="addButtons"></p>
+            <form>
+                <input id ="chkSave" type="checkbox" value="Save">Save this theater
+                <input id="btnNext" type="button" value="Next"><br>
+            </form>
+            <p id="error"></p>
+        </div>
+        <script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
+        <script>
+            //Connect to host
+            const socket = io('http://localhost:3000');
+            //Print message once connected
+            socket.on('connect', () => {
+                console.log('Socket connected? ' + socket.connected);
+            
+                //Get the url query
+                let search = window.location.search;
+                console.log(search);
+                let split = search.search('&');
+                let userEmail = search.slice(7, split);
+                console.log(userEmail);
+                search = search.slice(split + 1);
+                split = search.search('&');
+                let movieTitle = search.slice(6, split);
+                movieTitle = movieTitle.replace(/%20/g, ' ');
+                console.log(movieTitle);
+                search = search.slice(split + 1);
+                split = search.search('&');
+                let theatre = search.slice(7);
+                theatre = theatre.replace(/%20/g, ' ');
+                console.log(theatre);
+                      
+                //SQL Query
+                      //SELECT title,address FROM `screening` WHERE title = 'James Bond' AND address LIKE '%Tuscaloosa%'
+                let sql1 = `SELECT t1.name, t1.address FROM theatre t1 JOIN screening t2 ON t1.address = t2.address WHERE t2.title = '${movieTitle}' AND (t1.address LIKE '%${theatre}%' OR t1.name LIKE '%${theatre}%')`;
+
+                let htmlString = '';
+                let errorString = '';
+                let counter = 0;
+                var theaters = new Array(100);
+                //Print the theatre list
+                socket.emit('query', sql1, data1 => {
+                    if(data1[0] == undefined){
+                            htmlString += 'This movie is not showing at this location';
+                    }
+                    data1.forEach(entry => {
+                        console.log(entry);
+                        htmlString += `<p><input id="theater${counter}" type="radio" name="choose" value="1">  ${entry.name} <br> ${entry.address}</p>`;
+                        theaters[counter] = entry.address;
+                        counter++;
+                    });
+                    let addButtons = document.getElementById('addButtons');
+                    addButtons.innerHTML = htmlString;
+                });
+                
+                let next = document.getElementById('btnNext');
+                      
+                btnNext.addEventListener('click', e => {
+                    let i = 0;
+                    let theatreAddress
+                    let isError = true;
+                    for(i = 0; i < counter; i++){
+                        if(document.getElementById(`theater${i}`).checked == true){
+                            theatreAddress = theaters[i];
+                            isError = false;
+                        }
+                    }
+                    if(isError == true){
+                        errorString += 'Please select a theater before clicking Next.';
+                        let errorMessage = document.getElementById('error');
+                        errorMessage.innerHTML = errorString;
+                    }
+                    else if(document.getElementById(`chkSave`).checked == true){
+                        sql2 = `SELECT email, address FROM preferences WHERE email='${userEmail}' AND address='${theatreAddress}'`;
+                        socket.emit('query', sql2, data2 => {
+                            if(data2[0] == undefined){
+                                isError = false;
+                            }
+                        });
+                        if(isError = true){
+                            errorString += 'Theatre is already saved';
+                            let errorMessage = document.getElementById('error');
+                            errorMessage.innerHTML = errorString;
+                        }
+                        else{
+                            //SQL Query to save preferred theatre
+                            sql3 = `INSERT INTO preferences VALUES ('${userEmail}', '${theatreAddress}')`;
+                            socket.emit('query', sql3, data3 => {
+                                window.location.assign(`./selectTime.html?email=${userEmail}&movie=${movieTitle}&theatre=${theatreAddress}`);
+                            });
+                        }
+                    }
+                    else{
+                        window.location.assign(`./selectTime.html?email=${userEmail}&movie=${movieTitle}&theatre=${theatreAddress}`);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
