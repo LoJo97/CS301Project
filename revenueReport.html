@@ -25,25 +25,11 @@
 				console.log('Socket connected? ' + socket.connected);
 			});
             
-<!--            URL-->
-<!--            //Get the url query-->
-<!--            let search = window.location.search;-->
-<!--            console.log(search);-->
-<!--            let userEmail = search.slice(7, search.length);-->
-<!--            console.log(userEmail);-->
-<!--            -->
-<!--            //Get the user-->
-<!--            let sql1 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;-->
-<!--            console.log(sql1);-->
-<!--            -->
-<!--            let user;-->
-<!--            let email;-->
-<!--            socket.emit('query', sql1, data => {-->
-<!--                        console.log(data);-->
-<!--                        user = data[0].username;-->
-<!--                        email = data[0].email;-->
-<!--                        -->
-<!--                        });-->
+            //Get the url query
+            let search = window.location.search;
+            console.log(search);
+            let userEmail = search.slice(7, search.length);
+            console.log(userEmail);
 
             //Get the Revenue Table
             const revenueTable = document.getElementById('revenueTable');
@@ -55,26 +41,23 @@
             headerRow.insertCell(1).innerHTML = revenueText.bold();
             
             //SQL Query
-            let sql3 = `SELECT MONTHNAME(dateOfOrder) as Month, SUM(cost) AS Revenue FROM ticketOrder GROUP BY MONTHNAME(dateOfOrder) ORDER BY MONTH(dateOfOrder) ASC LIMIT 3`;
-
-            socket.emit('query', sql3, data => {
+            let sql1 = `SELECT MONTHNAME(dateOfOrder) as Month, SUM(cost) AS Revenue FROM ticketOrder GROUP BY MONTHNAME(dateOfOrder) ORDER BY MONTH(dateOfOrder) ASC LIMIT 3`;
+            console.log(sql1);
+            
+            socket.emit('query', sql1, data => {
                 data.forEach(entry => {
                     let newRow = revenueTable.insertRow(-1);
-                             newRow.insertCell(0).innerHTML = entry.Month;
-                             newRow.insertCell(1).innerHTML = entry.Revenue;
-<!--                             newRow.addEventListener('click', e => {-->
-<!--                                                     window.location.replace(`./movie.html?email=${userEmail}&title=${entry.title}`);-->
-<!--                                                     });-->
-                             
-                             });
-                        
+                        newRow.insertCell(0).innerHTML = entry.Month;
+                        newRow.insertCell(1).innerHTML = entry.Revenue;
                 });
+                        
+            });
                 
 			//Get the back button
 			const btnBack = document.getElementById('btnBack');
 
 			btnBack.addEventListener('click', e => {
-                 window.location.replace('./chooseFunctionality.html');
+                 window.location.replace(`./chooseFunctionality.html?email=${userEmail}`);
 			});
 		</script>
 	</body>
