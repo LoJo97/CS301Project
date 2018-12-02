@@ -42,7 +42,7 @@
                       
                 //SQL Query
                       //SELECT title,address FROM `screening` WHERE title = 'James Bond' AND address LIKE '%Tuscaloosa%'
-                let sql1 = `SELECT t1.name, t1.address FROM theatre t1 JOIN screening t2 ON t1.address = t2.address WHERE t2.title = '${movieTitle}' AND (t1.address LIKE '%${theatre}%' OR t1.name LIKE '%${theatre}%')`;
+                let sql1 = `SELECT DISTINCT t1.name, t1.address FROM theatre t1 JOIN screening t2 ON t1.address = t2.address WHERE t2.title = '${movieTitle}' AND (t1.address LIKE '%${theatre}%' OR t1.name LIKE '%${theatre}%')`;
 
                 let htmlString = '';
                 let errorString = '';
