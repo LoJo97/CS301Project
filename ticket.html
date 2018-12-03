@@ -330,6 +330,10 @@
             let address = document.getElementById("theatre").value;
             let title = document.getElementById("movie").value;
             let showing = document.getElementById("datetime").value;
+            if(isNaN(cardNum) && isNaN(cvv)) {
+                alert('Error with payment! Card number and CVV must be a numerical value!');
+                return;
+            }
             let sql2 = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'unused', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
             socket.emit('query', sql2, data => {
                 console.log(data);
