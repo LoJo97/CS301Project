@@ -80,14 +80,14 @@
                         let errorMessage = document.getElementById('error');
                         errorMessage.innerHTML = errorString;
                     }
-                    else if(document.getElementById(`chkSave`).checked == true){
+                    else if(document.getElementById(`chkSave`).checked === true){
                         sql2 = `SELECT email, address FROM preferences WHERE email='${userEmail}' AND address='${theatreAddress}'`;
                         socket.emit('query', sql2, data2 => {
-                            if(data2[0] == undefined){
+                            if(data2[0] === undefined){
                                 isError = false;
                             }
                         });
-                        if(isError = true){
+                        if(isError === true){
                             errorString += 'Theater is already saved';
                             let errorMessage = document.getElementById('error');
                             errorMessage.innerHTML = errorString;
