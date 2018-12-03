@@ -32,10 +32,10 @@
 				console.log(userEmail);
 
 				//Get the user
-				let sql0 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;
+				let sql0 = `SELECT username, email FROM customer WHERE email='${userEmail}'`;
 				console.log(sql0);
 				//Get theatres
-				let sql1 = `SELECT DISTINCT name, address FROM preferences natural join theatre WHERE email=\'${userEmail}\';`;
+				let sql1 = `SELECT DISTINCT name, address FROM preferences natural join theatre WHERE email='${userEmail}';`;
 				console.log(sql1);
 
 
@@ -94,7 +94,7 @@
 						}
 					}
 					console.log(num);
-					let sql2 = `DELETE FROM preferences WHERE email=\'${userEmail}\' and address=\'${addresses[num - 1]}\'`;
+					let sql2 = `DELETE FROM preferences WHERE email='${userEmail}' and address='${addresses[num - 1]}'`;
 					console.log(sql2);
 					socket.emit('query', sql2, data2 => {
 					});

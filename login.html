@@ -15,8 +15,8 @@
 				<input id="txtPassword" type="password"><br>
 			</form>
 			<form>
-				<input id="btnLogIn" type="button" value="Log In">
-				<input id="btnRegister" type="button" value="Register" onclick="window.location.href='./register.html'"/>
+				<input id="btnLogIn" type="button" value="Log In" class="btn green">
+				<input id="btnRegister" type="button" value="Register" onclick="window.location.href='./register.html'" class="btn red"/>
 			</form>
 			<p id="error"></p>
 		</div>
@@ -42,7 +42,7 @@
 				let pass = txtPassword.value;
 
 				//SQL query
-				let sql = `SELECT email, username FROM customer WHERE (email=\'${mail}\' AND password='${pass}')`;
+				let sql = `SELECT email, username FROM customer WHERE (email='${mail}' AND password='${pass}')`;
 
 				console.log(sql); //Ensures query was correct
 

@@ -16,7 +16,7 @@
 				Manager Password:<input id="txtManager" type="password"><br>
 			</form>
 			<form>
-				<input id="btnReg" type="button" value="Create">
+				<input id="btnReg" type="button" value="Create" class="btn green">
 			</form>
 			<p id="error"></p>
 		</div>
@@ -50,7 +50,7 @@
 
 				if(pass === confirmPass && user !== '' && pass != '' && mail != ''){
 					if(mgrPass){
-						let sysInfoQuery = `SELECT mgr_psswrd FROM 'Sys Info'`;
+						let sysInfoQuery = `SELECT mgrPsswd FROM 'systeminfo'`;
 						socket.emit('query', sysInfoQuery, data => {
 							if(mgrPass === data[0].mgr_psswrd){
 								sql = `INSERT INTO manager VALUES ('${user}', '${pass}', '${mail}')`;
