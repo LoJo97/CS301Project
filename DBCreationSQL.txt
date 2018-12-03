@@ -303,7 +303,7 @@ INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("Sta
 INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("Star Wars III: Revenge of the Sith", "390 Cheap Street Tuscaloosa, AL 38175", "2018-12-08 22:00:00", "12");
 INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("Star Wars III: Revenge of the Sith", "3072 Joyce Street Gulf Shores, AL 36542", "2018-12-10 23:00:00", "12");
 
-INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("James Bond", "390 Cheap Street Tuscaloosa, AL 38175", "2018-12-06 21:30:00", "12");
+INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("James Bond", "390 Cheap Street Tuscaloosa, AL 3817", "2018-12-06 21:30:00", "12");
 INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("Infinity War", "4250 Old Greensboro Rd, Tuscaloosa, AL 35405", "2018-12-06 20:30:00", "12");
 INSERT INTO `screening` (`title`, `address`, `screenTime`, `price`) VALUES ("testMovie", "745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487", "2018-12-02 22:30:00", "12");
 
@@ -422,56 +422,56 @@ INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumo
 /***Upcoming Orders***/
 /**Two orders for star wars II**/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(20.40,"2018-12-3","completed",20,1,1,0,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars II: Attack of the Clones","2018-12-10 21:30:00","1234123412341234");
+(20.40,"2018-12-3","unused",20,1,1,0,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars II: Attack of the Clones","2018-12-10 21:30:00","1234123412341234");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(32.40,"2018-12-3","completed",21,2,1,0,"nlmorgan@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars II: Attack of the Clones","2018-12-10 21:30:00","2222222222222222");
+(32.40,"2018-12-3","unused",21,2,1,0,"nlmorgan@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars II: Attack of the Clones","2018-12-10 21:30:00","2222222222222222");
 
 /**Four orders Captain at 745 Tamaha One Canceled **/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-3","completed",22,1,0,0,"bgates@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","2323232323232323");
+(12.00,"2018-12-3","unused",22,1,0,0,"bgates@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","2323232323232323");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(24.00,"2018-12-3","canceled",23,2,0,0,"bgates@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","2323232323232323");
+(24.00,"2018-12-3","unused",23,2,0,0,"bgates@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","2323232323232323");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(24.00,"2018-12-3","completed",24,2,0,0,"vbbasilio@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","1234567891011123");
+(24.00,"2018-12-3","unused",24,2,0,0,"vbbasilio@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","1234567891011123");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-3","completed",25,1,0,0,"lajordan3@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","4321432143214321");
+(12.00,"2018-12-3","unused",25,1,0,0,"lajordan3@crimson.ua.edu","745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487","Captain America","2018-12-03 21:30:00","4321432143214321");
 
 
 /**Four orders star wars I Canceled**/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-11-28","completed",26,1,0,0,"jbezos@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","8888888888888888");
+(12.00,"2018-11-28","unused",26,1,0,0,"jbezos@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","8888888888888888");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-11-28","completed",27,1,0,0,"tcook@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","2121212121212121");
+(12.00,"2018-11-28","unused",27,1,0,0,"tcook@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","2121212121212121");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(24.00,"2018-11-28","canceled",28,2,0,0,"bgates@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","2323232323232323");
+(24.00,"2018-11-28","unused",28,2,0,0,"bgates@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","2323232323232323");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(33.60,"2018-11-28","canceled",29,2,0,1,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","1234123412341234");
+(33.60,"2018-11-28","unused",29,2,0,1,"ismearsoll@crimson.ua.edu","2093 Blueberry Lane Tuscaloosa, AL 39284","Star Wars I: The Phantom Menace","2018-12-03 22:30:00","1234123412341234");
 
 
 
 /**Four orders star wars V One canceled***/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(33.60,"2018-12-02","completed",30,2,0,1,"ismearsoll@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","1234123412341234");
+(33.60,"2018-12-02","unused",30,2,0,1,"ismearsoll@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","1234123412341234");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-02","completed",31,1,0,0,"dtrump@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","3333333333333333");
+(12.00,"2018-12-02","unused",31,1,0,0,"dtrump@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","3333333333333333");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-02","canceled",32,1,0,0,"tcook@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","2121212121212121");
+(12.00,"2018-12-02","unused",32,1,0,0,"tcook@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","2121212121212121");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-02","completed",33,1,0,0,"nlmorgan@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","2222222222222222");
+(12.00,"2018-12-02","unused",33,1,0,0,"nlmorgan@crimson.ua.edu","3072 Joyce Street Gulf Shores, AL 36542","Star Wars V: The Empire Strikes Back","2018-12-08 21:00:00","2222222222222222");
 
 
 /*Three orders Revenge of Sith One Canceled*/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(24.00,"2018-12-02","completed",34,2,0,0,"jdoe@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","9999999999999999");
+(24.00,"2018-12-02","unused",34,2,0,0,"jdoe@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","9999999999999999");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(21.60,"2018-12-02","completed",35,1,0,1,"lajordan3@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","4321432143214321");
+(21.60,"2018-12-02","unused",35,1,0,1,"lajordan3@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","4321432143214321");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-02","canceled",36,1,0,0,"jdoe@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","9999999999999999");
+(12.00,"2018-12-02","unused",36,1,0,0,"jdoe@crimson.ua.edu","390 Cheap Street Tuscaloosa, AL 38175","Star Wars III: Revenge of the Sith","2018-12-08 22:00:00","9999999999999999");
 
 /*Last three orders*/
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-01","completed",37,1,0,0,"vbbasilio@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","9876543219876543");
+(12.00,"2018-12-01","unused",37,1,0,0,"vbbasilio@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","9876543219876543");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(12.00,"2018-12-01","completed",38,1,0,0,"emusk@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","7777777777777777");
+(12.00,"2018-12-01","unused",38,1,0,0,"emusk@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","7777777777777777");
 INSERT INTO `ticketOrder`(`cost`, `dateOfOrder`, `status`, `orderID`, `adultNumofTix`, `childNumofTix`, `seniorNumofTix`, `email`, `address`, `title`, `dateOfShowing`, `cardNum`) VALUES 
-(24.00,"2018-12-01","completed",39,2,0,0,"jbezos@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","8888888888888888");
+(24.00,"2018-12-01","unused",39,2,0,0,"jbezos@crimson.ua.edu","4250 Old Greensboro Rd, Tuscaloosa, AL 35405","Star Wars VI: Return of the Jedi","2018-12-02 22:45:00","8888888888888888");
