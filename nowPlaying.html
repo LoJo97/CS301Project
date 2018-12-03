@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="mystyle.css">
 		<meta charset="UTF-8">
 		<title>Now Playing</title>
 	</head>
 	<body>
-		<div id="me"></div>
+		<a id="me" href="" title="My page"><i class="material-icons icon">person</i></a>
 		<h1><u>NOW PLAYING</u></h1>
-		<table id="movies" style="margin-left: auto; margin-right: auto"></table>
-		<input type="button" value="Back" onclick="history.back()">
+		<table id="movies" style="margin-left: auto; margin-right: auto;"></table>
 		<script src="./node_modules/socket.io-client/dist/socket.io.js"></script>
 		<script>
 			//Connect to host
@@ -25,7 +25,7 @@
 				console.log(userEmail);
 
 				//Get the user
-				let sql1 = `SELECT username, email FROM customer WHERE email=\'${userEmail}\'`;
+				let sql1 = `SELECT username, email FROM customer WHERE email='${userEmail}'`;
 				console.log(sql1);
 
 				let user;
@@ -37,7 +37,7 @@
 
 					//Display link to "me" page
 					let me = document.getElementById('me');
-					me.innerHTML = `<a href="./me.html?email=${email}">${user}</a>`;
+					me.href = `./me.html?email=${email}`;
 				});
 
 				//Get the movies table

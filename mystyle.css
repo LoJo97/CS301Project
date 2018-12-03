@@ -8,6 +8,18 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+table, th, td{
+    border: 1px solid black;
+}
+
+td{
+    height: 30px;
+}
+
+.icon{
+    font-size: 45px;
+}
+
 .btn {
     padding: 15px 32px;
     display: inline-block;

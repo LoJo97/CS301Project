@@ -1,0 +1,111 @@
+1. Log in
+
+SELECT email, username FROM customer WHERE (email='lajordan3@crimson.ua.edu' AND password='password');
+SELECT email, username FROM manager WHERE (email='manager@crimson.ua.edu' AND password='password');
+
+2. Registration
+
+SELECT mgrPsswd FROM 'systeminfo';
+INSERT INTO manager VALUES ('newManager', 'password', 'newManager@crimson.ua.edu');
+
+INSERT INTO customer VALUES ('newCustomer', 'password', 'newCustomer@crimson.ua.edu');
+
+3. Now Playing
+
+SELECT username, email FROM customer WHERE email='lajordan3@crimson.ua.edu';
+SELECT title FROM movie;
+
+4. Me
+SELECT username, email FROM customer WHERE email='lajordan3@crimson.ua.edu';
+
+5. Movie
+
+SELECT * FROM movie WHERE title='Captain America';
+SELECT AVG(rating) 'average' FROM review WHERE mTitle = 'Captain America';
+
+6. Overview
+
+SELECT title, synopsis FROM movie WHERE title='Captain America';
+SELECT actorCharacter FROM cast WHERE title='Captain America';
+
+7. Review
+
+SELECT * FROM review WHERE mTitle='Captain America';
+SELECT AVG(rating) AS rating FROM review WHERE mTitle='Captain America';
+SELECT status FROM ticketOrder WHERE email = 'lajordan3@crimson.ua.edu' AND title = 'Captain America';
+
+8. Give Review
+
+SELECT MAX(reviewID) AS id FROM review;
+INSERT INTO review (rTitle, comment, rating, mTitle, email, reviewID) VALUES ('Best Movie Ever!', 'I love this film', 5, 'Captian America', 'lajordan3@crimson.ua.edu', 132);
+
+
+9. Choose Theater
+
+SELECT name, address FROM theatre NATURAL JOIN preferences WHERE email='lajordan3@crimson.ua.edu';
+
+10. Search Theater Results
+
+SELECT t1.name, t1.address FROM theatre t1 JOIN screening t2 ON t1.address = t2.address WHERE t2.title = 'Captain America' AND (t1.address LIKE '%Tuscaloosa%' OR t1.name LIKE '%Tuscaloosa%');
+SELECT email, address FROM preferences WHERE email='lajordan3@crimson.ua.edu' AND address='4250 Old Greensboro Rd, Tuscaloosa, AL 35405';
+INSERT INTO preferences VALUES ('lajordan3@crimson.ua.edu', '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487');
+
+11. Select Time
+
+SELECT screenTime FROM screening WHERE screenTime >= '2018-12-03 00:00:00' AND screenTime < '2018-12-04 00:00:00' AND title = 'Captain America' AND address = '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487' ORDER BY screenTime;
+
+12. Ticket
+
+SELECT price FROM screening WHERE screenTime = '2018-12-03 21:30:00' AND title = 'Captain America';
+SELECT name FROM theatre WHERE address = '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487';
+SELECT rating, length FROM movie WHERE title = 'Captain America';
+SELECT MAX(orderID) AS orderId FROM ticketorder;
+SELECT cardNum FROM paymentinfo WHERE email = 'lajordan3@crimson.ua.edu';
+INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(12, '2018-12-3', 'unused', 150, 1, 0, 0, 'lajordan3@crimson.ua.edu', '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487', 'Captain America', '2018-12-03 21:30:00
+', 1234123412341234);
+INSERT INTO paymentinfo (name, CVV, expoDate, cardNum, email) VALUES ('Logan Jordan', 123, '1-19', '0000000000000000', 'lajordan3@crimson.ua.edu');
+
+13. Payment Info
+
+*See ticket.html
+
+14. Confirmation
+
+*See ticket.html
+
+15. Order History
+
+SELECT username, email FROM customer WHERE email='lajordan3@crimson.ua.edu';
+SELECT DISTINCT orderID, title, status,cost FROM ticketOrder WHERE email='lajordan3@crimson.ua.edu';
+
+16. Order Detail/Cancel Order
+
+SELECT * FROM ticketOrder WHERE orderID='150';
+SELECT * FROM movie WHERE title='Captain America';
+SELECT * FROM theatre WHERE address='745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487';
+UPDATE ticketOrder SET status="canceled" WHERE orderID=132;
+
+17. My Payment Information
+
+SELECT username, email FROM customer WHERE email='lajordan3@crimson.ua.edu';
+SELECT DISTINCT cardNum, name, expoDate FROM paymentInfo WHERE email='lajordan3@crimson.ua.edu';
+DELETE FROM paymentInfo WHERE email='lajordan3@crimson.ua.edu' and cardNum='0000000000000000';
+
+18. My Preferred Theater
+
+SELECT username, email FROM customer WHERE email='lajordan3@crimson.ua.edu';
+SELECT DISTINCT name, address FROM preferences natural join theatre WHERE email='lajordan3@crimson.ua.edu';
+DELETE FROM preferences WHERE email='lajordan3@crimson.ua.edu' and address='	
+4250 Old Greensboro Rd, Tuscaloosa, AL 35405';
+
+19. Choose Functionality
+
+N/A
+
+20. View Revenue Report
+
+SELECT MONTHNAME(dateOfOrder) as Month, SUM(cost) AS Revenue FROM ticketOrder GROUP BY MONTHNAME(dateOfOrder) ORDER BY MONTH(dateOfOrder) ASC LIMIT 3;
+
+21. View Popular Movies
+
+SELECT * FROM (SELECT @rn:=if(@prv=MONTHNAME(dateOfShowing), @rn+1, 1) as rn, @prv:=MONTHNAME(dateOfShowing) as month, title, count(title) as count FROM ticketOrder JOIN (SELECT @prv:=0, @rn:=0)tmp WHERE status = 'completed' GROUP BY title, MONTHNAME(dateOfShowing) ORDER BY MONTH(dateOfShowing) ASC, count(title) DESC) a where rn <= 3;
