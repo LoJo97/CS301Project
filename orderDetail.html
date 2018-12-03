@@ -13,6 +13,7 @@
 		<p id="content4"></p>
 		<p id="content5"></p>
 		<p id="content6"></p>
+		<p id="content7"></p>
 	<div id="Detail-Form">
 
 		<form>
@@ -131,12 +132,42 @@
 
 					//Cancel Order Button and Event
 					btnCancel.addEventListener('click', e => {
-						console.log('Cancel ' + orderID);
-						let sql3 = `UPDATE ticketOrder SET status="canceled" WHERE orderID=${orderID};`;
-						console.log(sql3);
-						socket.emit('query', sql3, data4 => {
-						});
-						location.reload();
+						if(data1[0].status == "completed")
+						{
+							let content7 = document.getElementById('content7');
+							content7.innerHTML = `<p> Cannot cancel a completed order</p>`;
+						}
+						else if(data1[0].status == "canceled")
+						{
+							let content7 = document.getElementById('content7');
+							content7.innerHTML = `<p>Order already canceled</p>`;
+						}
+						else
+						{
+							console.log('Cancel ' + orderID);
+							let sql3 = `UPDATE ticketOrder SET status="canceled" WHERE orderID=${orderID};`;
+							console.log(sql3);
+							socket.emit('query', sql3, data4 => {
+							});
+
+							//location.reload();
+							htmlString = '';
+							htmlString += `Order status: canceled`;
+							let content6 = document.getElementById('content6');
+							content6.innerHTML = htmlString;
+							sql3 = `SELECT * from systemInfo;`;
+
+							console.log(sql3);
+							socket.emit('query', sql3, data5 => {
+								console.log(data5);
+								console.log(data5[0]);
+								console.log(data5[0].refundRate);
+								let costAfterRefund = data1[0].cost - data5[0].refundRate;
+								let content7 = document.getElementById('content7');
+								content7.innerHTML = `<p>Refund Policy deducts $${data5[0].refundRate.toFixed(2)} so you will be refunded $${costAfterRefund.toFixed(2)}</p>` ;
+							});
+
+						}
 					});
 
 

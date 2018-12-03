@@ -1,4 +1,4 @@
-<head>
+﻿<head>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <meta charset="UTF-8">
     <title>Review</title>
@@ -289,7 +289,7 @@
             let title = document.getElementById("movie").value;
             let showing = document.getElementById("datetime").value;
             let cardNum = document.getElementById("pref").value;
-            let sql = `INSERT INTO ticketOrder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
+            let sql = `INSERT INTO ticketOrder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'unused', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
             socket.emit('query', sql, data => {
                 console.log(data);
             });
@@ -330,7 +330,11 @@
             let address = document.getElementById("theatre").value;
             let title = document.getElementById("movie").value;
             let showing = document.getElementById("datetime").value;
-            let sql2 = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'completed', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
+            if(isNaN(cardNum) && isNaN(cvv)) {
+                alert('Error with payment! Card number and CVV must be a numerical value!');
+                return;
+            }
+            let sql2 = `INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(${totalPrice}, '2018-12-3', 'unused', ${orderId}, ${adultTix}, ${childTix}, ${seniorTix}, '${email}', '${address}', '${title}', '${showing}', ${cardNum})`;
             socket.emit('query', sql2, data => {
                 console.log(data);
             });
