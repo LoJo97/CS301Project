@@ -54,7 +54,7 @@
             let title = document.getElementById('MovieTitle');
             title.innerHTML = `<h1>${movieTitle}</h1>`;
             title.value = movieTitle;
-            document.getElementById('SubmitButton').innerHTML = `<a class="btn green" onclick="submitReview()">Submit</a>`
+            document.getElementById('SubmitButton').innerHTML = `<a class="btn green" onclick="submitReview()">Submit</a>`;
             document.getElementById('BackButton').innerHTML = `<a class="btn red" href="./review.html?email=${userEmail}&title=${movieTitle}">Back</a>`;
             document.getElementById('email').value = userEmail;
 
@@ -79,11 +79,11 @@
             }
 
             const socket = io('http://localhost:3000');
-            let sql = `INSERT INTO review (rTitle, COMMENT, rating, mTitle, email, reviewID) VALUES ('${title}', '${comment}', ${rating}, '${movie}', '${email}', ${reviewId})`;
+            let sql = `INSERT INTO review (rTitle, comment, rating, mTitle, email, reviewID) VALUES ('${title}', '${comment}', ${rating}, '${movie}', '${email}', ${reviewId})`;
             socket.emit('query', sql, data => {
                 console.log(data);
+                window.history.back();
             });
-            window.history.back();
         }
     </script>
 </body>
