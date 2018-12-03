@@ -59,11 +59,11 @@ SELECT screenTime FROM screening WHERE screenTime >= '2018-12-03 00:00:00' AND s
 SELECT price FROM screening WHERE screenTime = '2018-12-03 21:30:00' AND title = 'Captain America';
 SELECT name FROM theatre WHERE address = '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487';
 SELECT rating, length FROM movie WHERE title = 'Captain America';
-SELECT MAX(orderID) AS orderId FROM ticketorder;
-SELECT cardNum FROM paymentinfo WHERE email = 'lajordan3@crimson.ua.edu';
-INSERT INTO ticketorder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(12, '2018-12-3', 'unused', 150, 1, 0, 0, 'lajordan3@crimson.ua.edu', '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487', 'Captain America', '2018-12-03 21:30:00
+SELECT MAX(orderID) AS orderId FROM ticketOrder;
+SELECT cardNum FROM paymentInfo WHERE email = 'lajordan3@crimson.ua.edu';
+INSERT INTO ticketOrder (cost, dateOfOrder, status, orderID, adultNumofTix, childNumofTix, seniorNumofTix, email, address, title, dateOfShowing, cardNum) VALUES(12, '2018-12-3', 'unused', 150, 1, 0, 0, 'lajordan3@crimson.ua.edu', '745 Tamaha Trace NE Unit 160 Tuscaloosa, AL 35487', 'Captain America', '2018-12-03 21:30:00
 ', 1234123412341234);
-INSERT INTO paymentinfo (name, CVV, expoDate, cardNum, email) VALUES ('Logan Jordan', 123, '1-19', '0000000000000000', 'lajordan3@crimson.ua.edu');
+INSERT INTO paymentInfo (name, CVV, expoDate, cardNum, email) VALUES ('Logan Jordan', 123, '1-19', '0000000000000000', 'lajordan3@crimson.ua.edu');
 
 13. Payment Info
 
