@@ -73,7 +73,7 @@
 						status = data2[counter].status;
 						cost = data2[counter].cost;
 						counter++;
-						htmlString += `<p><input type="radio" name="group1" id="order${counter}" value="1">  ${orderID}, ${title}, ${status}, ${cost}</p>`;
+						htmlString += `<p><input type="radio" name="group1" id="order${counter}" value="1">  ${orderID}, ${title}, ${status}, ${cost.toFixed(2)}</p>`;
 						console.log(htmlString);
 
 						orderIDs[counter-1] = orderID;
