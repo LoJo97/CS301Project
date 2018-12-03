@@ -316,7 +316,7 @@
             }
             const socket = io('http://localhost:3000');
             if (checkbox.checked) {
-                let sql = `INSERT INTO paymentinfo (name, CVV, expoDate, cardNum, email) VALUES ('${name}', ${cvv}, '${month}-${year}', '${cardNum}', '${email}')`;
+                let sql = `INSERT INTO paymentInfo (name, CVV, expoDate, cardNum, email) VALUES ('${name}', ${cvv}, '${month}-${year}', '${cardNum}', '${email}')`;
                 socket.emit('query', sql, data => {
                     console.log(data);
                 });
